@@ -1,8 +1,29 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "emmet.includeLanguages": {
+      "javascript": "html"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+    },
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  },
+  "extensions": {
+    "recommendations": [
+      "octref.vetur",
+      "simonsiefke.prettier-vscode",
+      "hitkodev.vscode-remark-hugo",
+      "xabikos.javascriptsnippets",
+      "yzhang.markdown-all-in-one",
+      "shuworks.vscode-table-formatter"
+    ]
+  }
 }
