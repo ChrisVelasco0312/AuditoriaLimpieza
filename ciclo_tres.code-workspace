@@ -20,10 +20,10 @@
     "recommendations": [
       "octref.vetur",
       "simonsiefke.prettier-vscode",
-      "hitkodev.vscode-remark-hugo",
       "xabikos.javascriptsnippets",
       "yzhang.markdown-all-in-one",
-      "shuworks.vscode-table-formatter"
+      "shuworks.vscode-table-formatter",
+      "dbaeumer.vscode-eslint"
     ]
   }
 }
