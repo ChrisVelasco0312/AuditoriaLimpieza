@@ -1,16 +1,26 @@
 {
   "folders": [
     {
-      "path": ".",
-      "server": "/server"
+      "path": "."
+    },
+    {
+      "path": "client"
+    },
+    {
+      "path": "server"
     }
   ],
   "settings": {
     "emmet.includeLanguages": {
-      "javascript": "html"
+      "javascript": "html",
+      "vue-html": "html",
+      "vue": "html"
     },
     "[javascript]": {
       "editor.defaultFormatter": "SimonSiefke.prettier-vscode"
+    },
+    "[vue]": {
+      "editor.defaultFormatter": "octref.vetur"
     },
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
