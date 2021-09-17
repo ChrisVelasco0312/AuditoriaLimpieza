@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <!-- Nav bar -->
-    <!-- <nav
+  <!-- Nav bar -->
+  <!-- <nav
       class="
         navbar navbar-dark
         bg-primary
@@ -25,10 +24,9 @@
         </ul>
       </div>
     </nav> -->
-    <!-- Router view -->
-    <div class="container mt-5">
-      <router-view></router-view>
-    </div>
+  <!-- Router view -->
+  <div class="root-container">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -62,5 +60,10 @@ body {
   grid-gap: 1rem;
   width: 80%;
   min-width: 300px;
+}
+
+.root-container {
+  width: 100vw;
+  display: flex;
 }
 </style>
