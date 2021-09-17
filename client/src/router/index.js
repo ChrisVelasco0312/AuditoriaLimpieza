@@ -3,13 +3,13 @@ import { createWebHistory, createRouter } from 'vue-router'
 //import About from '@/views/About.vue'
 
 const routes = [
-  /*  {
+  {
     path: '/',
     name: 'Autenticacion',
     component: () => import('../components/Autenticacion'),
-  },*/
+  },
   {
-    path: '/',
+    path: '/registrar',
     name: 'Registrar',
     component: () => import('../components/CrearRevisionDeLimpieza'),
   },

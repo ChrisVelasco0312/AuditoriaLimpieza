@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h5>Basic</h5>
+    <h1>Iniciar Sesión</h1>
+    <!--LOGIN-->
     <Password v-model="value1" :feedback="false" />
   </div>
 </template>
@@ -16,8 +17,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-::v-deep(.p-password input) {
+<style>
+/* ::v-deep(.p-password input) {
   width: 15rem;
-}
+} */
 </style>

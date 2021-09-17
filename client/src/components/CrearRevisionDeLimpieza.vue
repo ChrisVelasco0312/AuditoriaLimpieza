@@ -5,27 +5,27 @@
       <form @submit.prevent="handleSubmitForm">
         <div class="form-group">
           <h5>Silla</h5>
-          <InputSwitch v-model="checked1" />
+          <InputSwitch v-model="checkForm.checked1" />
         </div>
         <br />
         <div class="form-group">
           <h5>Camilla</h5>
-          <InputSwitch v-model="checked2" />
+          <InputSwitch v-model="checkForm.checked2" />
         </div>
         <br />
         <div class="form-group">
           <h5>Escritorio del consultorio</h5>
-          <InputSwitch v-model="checked3" />
+          <InputSwitch v-model="checkForm.checked3" />
         </div>
         <br />
         <div class="form-group">
           <h5>Lavamanos</h5>
-          <InputSwitch v-model="checked4" />
+          <InputSwitch v-model="checkForm.checked4" />
         </div>
         <br />
         <div class="form-group">
           <h5>Soporte de líquidos</h5>
-          <InputSwitch v-model="checked5" />
+          <InputSwitch v-model="checkForm.checked5" />
         </div>
         <br /><br />
 
@@ -50,15 +50,26 @@ export default {
   },
   data: () => {
     return {
-      checked1: false,
-      checked2: false,
-      checked3: false,
-      checked4: false,
-      checked5: false,
+      checkForm: {
+        checked1: false,
+        checked2: false,
+        checked3: false,
+        checked4: false,
+        checked5: false,
+      },
     }
+  },
+  methods: {
+    handleClick($event) {
+      console.log($event)
+      console.log(this.checkForm)
+    },
   },
 }
 </script>
+
+<style lang="sass" scoped>
+</style>
 
 
 

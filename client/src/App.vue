@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Nav bar -->
-    <nav
+    <!-- <nav
       class="
         navbar navbar-dark
         bg-primary
@@ -13,7 +13,9 @@
         <a class="navbar-brand float-left">Auditoría de Limpieza</a>
         <ul class="nav navbar-nav flex-row float-right">
           <li class="nav-item">
-            <router-link class="nav-link pr-3" to="/"> Registrar </router-link>
+            <router-link class="nav-link pr-3" to="/registrar">
+              Registrar
+            </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/consultar"
@@ -22,9 +24,11 @@
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> -->
     <!-- Router view -->
-    <div class="container mt-5"><router-view></router-view></div>
+    <div class="container mt-5">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
