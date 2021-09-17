@@ -26,7 +26,7 @@
       </div>
     </nav> -->
     <!-- Router view -->
-    <div class="container mt-5">
+    <div class="root-container">
       <router-view></router-view>
     </div>
   </div>
@@ -62,5 +62,10 @@ body {
   grid-gap: 1rem;
   width: 80%;
   min-width: 300px;
+}
+
+.root-container {
+  width: 100vw;
+  display: flex;
 }
 </style>

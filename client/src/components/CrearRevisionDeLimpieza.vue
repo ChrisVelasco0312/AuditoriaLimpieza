@@ -1,7 +1,9 @@
 <template>
-  <div class="row justify-content-center">
+  <SidebarContainer v-show="true" />
+  <div class="revision__container">
     <div class="col-md-6">
       <h1 class="text-center">Auditoría de limpieza</h1>
+
       <form @submit.prevent="handleSubmitForm">
         <div class="form-group">
           <h5>Silla</h5>
@@ -40,6 +42,7 @@
 <script>
 import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
+import SidebarContainer from './sidebarContainer.vue'
 import 'primeflex/primeflex.css'
 
 export default {
@@ -47,6 +50,7 @@ export default {
   components: {
     InputSwitch,
     Button,
+    SidebarContainer,
   },
   data: () => {
     return {
