@@ -61,6 +61,7 @@ export default {
   max-width: 25%;
   background: var(--color-light);
   color: var(--color-primary);
+  box-shadow: 3px 1px 1px 0px #0000001a;
 }
 section.profile {
   display: grid;
@@ -79,6 +80,9 @@ section.profile {
   width: 100%;
   background: transparent;
   border: none;
+}
+.p-menu .p-menuitem-link {
+  padding: 2rem;
 }
 .sidebar .logo {
   width: 80px;
