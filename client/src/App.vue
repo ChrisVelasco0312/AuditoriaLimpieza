@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <!-- Nav bar -->
-    <!-- <nav
+  <!-- Nav bar -->
+  <!-- <nav
       class="
         navbar navbar-dark
         bg-primary
@@ -25,10 +24,9 @@
         </ul>
       </div>
     </nav> -->
-    <!-- Router view -->
-    <div class="root-container">
-      <router-view></router-view>
-    </div>
+  <!-- Router view -->
+  <div class="root-container">
+    <router-view></router-view>
   </div>
 </template>
 
