@@ -1,23 +1,43 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <!-- Muestra listado de auditorias -->
-      <DataTable :value="products" responsiveLayout="scroll">
-        <Column field="idRevision" header="IdRevision"></Column>
-        <Column field="fecha" header="Fecha"></Column>
-        <Column field="elemento" header="Elemento"></Column>
-        <Column field="resultado" header="Resultado"></Column>
-      </DataTable>
-    </div>
-  </div>
+  <SidebarContainer v-show="isVisible" />
+  <Button @click="toggleMenu" class="menu-button" icon="pi pi-list" />
 </template>
 <script>
+import Button from 'primevue/button'
+// import DataTable from 'primevue/datatable'
+import SidebarContainer from './sidebarContainer.vue'
+// import Column from 'primevue/column'
+// import ColumnGroup from 'primevue/columngroup'
+
 export default {
-  data() {
-    return {}
+  name: 'ListarRevisiones',
+  components: {
+    SidebarContainer,
+    Button,
+    // DataTable,
+    // Column,
+    // ColumnGroup,
+  },
+  data: () => {
+    return {
+      isVisible: false,
+    }
+  },
+  methods: {
+    toggleMenu() {
+      this.isVisible = !this.isVisible
+    },
   },
 }
 </script>
+
+<style>
+.menu-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+</style>
 
 
 
