@@ -1,14 +1,16 @@
 <template>
   <div class="revision__container">
-    <!-- <h1 class="text-center">Auditoría de limpieza</h1> -->
     <Card class="header__card">
-      <template #title> Auditoria </template>
       <template #content>
+        <h1>Auditoria</h1>
         <strong> ID: {{ (auditoriaDate.id = '001') }} </strong>
         <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
+        <div class="form-button">
+          <Button label="Registrar" @click="handleClick()" />
+        </div>
       </template>
     </Card>
-    <Card>
+    <Card class="sede__card">
       <template #title>
         <i class="pi pi-map-marker"></i> Seleccionar Sede
       </template>
@@ -28,34 +30,35 @@
         <Knob v-model="progressValue" readonly />
       </template>
     </Card>
-
-    <form class="revision__form" @submit.prevent="handleSubmitForm">
-      <div class="form-group" @click="refreshPercentage">
-        <div class="form-switch">
-          <h5>Silla</h5>
-          <InputSwitch v-model="checkForm.checked1" />
-        </div>
-        <div class="form-switch">
-          <h5>Camilla</h5>
-          <InputSwitch v-model="checkForm.checked2" />
-        </div>
-        <div class="form-switch">
-          <h5>Escritorio del consultorio</h5>
-          <InputSwitch v-model="checkForm.checked3" />
-        </div>
-        <div class="form-switch">
-          <h5>Lavamanos</h5>
-          <InputSwitch v-model="checkForm.checked4" />
-        </div>
-        <div class="form-switch">
-          <h5>Soporte de líquidos</h5>
-          <InputSwitch v-model="checkForm.checked5" />
-        </div>
-      </div>
-      <div class="form-button">
-        <Button label="Registrar" @click="handleClick()" />
-      </div>
-    </form>
+    <Card class="form__card">
+      <template #title> Objetos a revisar </template>
+      <template #content>
+        <form class="revision__form" @submit.prevent="handleSubmitForm">
+          <div class="form-group" @click="refreshPercentage">
+            <div class="form-switch">
+              <h4>Silla</h4>
+              <InputSwitch v-model="checkForm.checked1" />
+            </div>
+            <div class="form-switch">
+              <h4>Camilla</h4>
+              <InputSwitch v-model="checkForm.checked2" />
+            </div>
+            <div class="form-switch">
+              <h4>Escritorio del consultorio</h4>
+              <InputSwitch v-model="checkForm.checked3" />
+            </div>
+            <div class="form-switch">
+              <h4>Lavamanos</h4>
+              <InputSwitch v-model="checkForm.checked4" />
+            </div>
+            <div class="form-switch">
+              <h4>Soporte de líquidos</h4>
+              <InputSwitch v-model="checkForm.checked5" />
+            </div>
+          </div>
+        </form>
+      </template>
+    </Card>
   </div>
 </template>
 
@@ -126,21 +129,39 @@ export default {
 }
 .header__card {
   grid-column: 1 / 3;
+  height: 120px;
+  align-self: end;
 }
-.revision__form {
+.form__card {
   grid-row: 3;
   grid-column: 1 / 3;
 }
+.revision__form {
+  width: 100%;
+}
+.sede__card {
+  align-self: center;
+}
 .form-group {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-gap: 1rem;
   width: 100%;
-  padding: 1rem;
+}
+.form-switch {
+  border: 2px solid rgb(189, 189, 189);
+  border-radius: 5px;
+  padding: 0.5rem;
+  display: grid;
+  place-items: center;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(2, 105px);
+  gap: 0.5rem;
+  width: 100%;
 }
 .p-card {
   background-color: var(--color-light);
-  /* height: 150px; */
+  height: fit-content;
 }
 .p-card .p-card-title {
   margin: 0;
@@ -154,6 +175,12 @@ export default {
 }
 .p-dropdown {
   width: 100%;
+}
+.sede__card .p-card-content {
+  height: 120px;
+}
+.clean-progress {
+  align-self: center;
 }
 .clean-progress .p-card-content {
   display: flex;

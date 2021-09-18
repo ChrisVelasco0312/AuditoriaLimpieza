@@ -39,6 +39,7 @@ export default {
 <style>
 .main-container {
   all: inherit;
+  margin: 0 auto;
 }
 .menu-button {
   position: absolute;
@@ -46,8 +47,11 @@ export default {
   left: 20px;
 }
 .revision__container {
+  max-width: 1420px;
+  margin: 0 auto;
   display: grid;
   width: 100%;
+  height: 85%;
   padding: 1rem;
 }
 .revision__form {
