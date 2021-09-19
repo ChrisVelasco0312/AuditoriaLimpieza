@@ -122,32 +122,39 @@ export default {
 
 <style>
 .revision__container {
+  padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: unset;
+  grid-template-rows: unset;
   gap: 1rem;
 }
+
 .header__card {
-  grid-column: 1 / 3;
+  grid-column: unset;
   height: 120px;
   align-self: end;
 }
+
 .form__card {
-  grid-row: 3;
-  grid-column: 1 / 3;
+  grid-row: unset;
+  grid-column: unset;
 }
+
 .revision__form {
   width: 100%;
 }
+
 .sede__card {
   align-self: center;
 }
+
 .form-group {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   grid-gap: 1rem;
   width: 100%;
 }
+
 .form-switch {
   border: 2px solid rgb(189, 189, 189);
   border-radius: 5px;
@@ -159,13 +166,17 @@ export default {
   gap: 0.5rem;
   width: 100%;
 }
+
 .p-card {
   background-color: var(--color-light);
   height: fit-content;
+  max-width: 100%;
 }
+
 .p-card .p-card-title {
   margin: 0;
 }
+
 .p-card .p-card-content {
   display: flex;
   place-items: center;
@@ -173,20 +184,45 @@ export default {
   gap: 2rem;
   padding: 0.5rem;
 }
+
 .p-dropdown {
   width: 100%;
 }
+
 .sede__card .p-card-content {
   height: 120px;
 }
+
 .clean-progress {
   align-self: center;
 }
+
 .clean-progress .p-card-content {
   display: flex;
 }
+
 .p-progressbar.p-component.p-progressbar-determinate {
   border: 2px solid rgb(192, 191, 191);
+}
+
+@media (min-width: 600px) {
+  .header__card {
+    grid-column: 1 / 3;
+    height: 120px;
+    align-self: end;
+  }
+
+  .form__card {
+    grid-row: 3;
+    grid-column: 1 / 3;
+  }
+
+  .revision__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+  }
 }
 </style>
 

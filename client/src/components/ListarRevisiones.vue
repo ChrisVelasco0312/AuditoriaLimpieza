@@ -1,9 +1,9 @@
 <template>
   <SidebarContainer v-show="isVisible" />
-  <Button @click="toggleMenu" class="menu-button" icon="pi pi-list" />
+  <!-- <Button @click="toggleMenu" class="menu-button" icon="pi pi-list" /> -->
 </template>
 <script>
-import Button from 'primevue/button'
+// import Button from 'primevue/button'
 // import DataTable from 'primevue/datatable'
 import SidebarContainer from './sidebarContainer.vue'
 // import Column from 'primevue/column'
@@ -13,7 +13,7 @@ export default {
   name: 'ListarRevisiones',
   components: {
     SidebarContainer,
-    Button,
+    // Button,
     // DataTable,
     // Column,
     // ColumnGroup,
@@ -23,20 +23,11 @@ export default {
       isVisible: false,
     }
   },
-  methods: {
-    toggleMenu() {
-      this.isVisible = !this.isVisible
-    },
-  },
+  methods: {},
 }
 </script>
 
 <style>
-.menu-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
 </style>
 
 
