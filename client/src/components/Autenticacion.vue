@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <img class="logo" src="@/assets/logo.svg" alt="" />
     <p class="sign" align="center">Iniciar Sesion</p>
     <form class="form1">
       <input class="un" type="text" align="center" placeholder="Auditor" />
