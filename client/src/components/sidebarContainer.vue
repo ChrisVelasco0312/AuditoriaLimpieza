@@ -13,7 +13,7 @@
     </section>
     <Menu :model="items" />
     <img class="logo" src="@/assets/logo.svg" alt="" />
-    <Button label="Cerrar Sesión" />
+    <Button label="Cerrar Sesión" @click="signOut" />
   </div>
 </template>
 
@@ -47,6 +47,9 @@ export default {
   methods: {
     openEdit() {
       console.log('WORKS')
+    },
+    signOut() {
+      window.location.href = '/'
     },
   },
 }

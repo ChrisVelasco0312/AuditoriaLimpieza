@@ -1,8 +1,7 @@
 <template>
   <div class="login-container">
     <img class="logo" src="@/assets/logo.svg" alt="" />
-    <form class="login__form">
-      <!-- <p class="login__label" align="center">Iniciar Sesion</p> -->
+    <form class="login__form" @keyup.enter="handleSubmitForm">
       <span class="login__input">
         <label for="auditor">Auditor</label>
         <InputText id="auditor" type="text" v-model="nameValue" />
