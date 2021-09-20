@@ -1,13 +1,11 @@
 <template>
   <div class="main-container">
-    <SidebarContainer v-show="isVisible" />
-    <Button @click="toggleMenu" class="menu-button" icon="pi pi-list" />
+    <SidebarContainer />
     <RevisionContainer />
   </div>
 </template>
 
 <script>
-import Button from 'primevue/button'
 import SidebarContainer from './sidebarContainer.vue'
 import RevisionContainer from './revisionContainer.vue'
 import 'primeflex/primeflex.css'
@@ -15,7 +13,6 @@ import 'primeflex/primeflex.css'
 export default {
   name: 'App',
   components: {
-    Button,
     SidebarContainer,
     RevisionContainer,
   },
@@ -29,9 +26,6 @@ export default {
       console.log($event)
       console.log(this.checkForm)
     },
-    toggleMenu() {
-      this.isVisible = !this.isVisible
-    },
   },
 }
 </script>
@@ -41,22 +35,30 @@ export default {
   all: inherit;
   margin: 0 auto;
 }
-.menu-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
+
 .revision__container {
   max-width: 1420px;
   margin: 0 auto;
   display: grid;
-  width: 100%;
-  height: 85%;
+  width: 100vw;
+  height: unset;
   padding: 1rem;
 }
+
 .revision__form {
   display: grid;
   place-items: center;
+}
+
+@media (min-width: 600px) {
+  .revision__container {
+    max-width: 1420px;
+    margin: 0 auto;
+    display: grid;
+    width: 100%;
+    height: 100vh;
+    padding: 1rem;
+  }
 }
 </style>
 
