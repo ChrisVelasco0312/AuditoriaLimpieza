@@ -57,7 +57,6 @@ export default {
     display: grid;
     width: 100%;
     height: 100vh;
-    padding: 1rem;
   }
 }
 </style>

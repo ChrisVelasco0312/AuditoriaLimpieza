@@ -122,7 +122,6 @@ export default {
 
 <style>
 .revision__container {
-  padding: 2rem;
   display: grid;
   grid-template-columns: unset;
   grid-template-rows: unset;
@@ -179,6 +178,7 @@ export default {
 
 .p-card .p-card-content {
   display: flex;
+  flex-wrap: wrap;
   place-items: center;
   justify-content: space-around;
   gap: 2rem;
@@ -219,6 +219,7 @@ export default {
 
   .revision__container {
     display: grid;
+    padding: 0rem;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 1rem;
