@@ -37,23 +37,68 @@
           <div class="form-group" @click="refreshPercentage">
             <div class="form-switch">
               <h4>Silla</h4>
-              <InputSwitch v-model="checkForm.checked1" />
+              <div class="p-field-checkbox p-m-0">
+                <TriStateCheckbox v-model="checkForm.value1" />
+                <label>{{
+                  checkForm.value1 == null
+                    ? ' Sin revisar'
+                    : checkForm.value1 == true
+                    ? ' Limpio'
+                    : ' Sucio'
+                }}</label>
+              </div>
             </div>
             <div class="form-switch">
               <h4>Camilla</h4>
-              <InputSwitch v-model="checkForm.checked2" />
+              <div class="p-field-checkbox p-m-0">
+                <TriStateCheckbox v-model="checkForm.value2" />
+                <label>{{
+                  checkForm.value2 == null
+                    ? ' Sin revisar'
+                    : checkForm.value2 == true
+                    ? ' Limpio'
+                    : ' Sucio'
+                }}</label>
+              </div>
             </div>
             <div class="form-switch">
               <h4>Escritorio del consultorio</h4>
-              <InputSwitch v-model="checkForm.checked3" />
+              <div class="p-field-checkbox p-m-0">
+                <TriStateCheckbox v-model="checkForm.value3" />
+                <label>{{
+                  checkForm.value3 == null
+                    ? ' Sin revisar'
+                    : checkForm.value3 == true
+                    ? ' Limpio'
+                    : ' Sucio'
+                }}</label>
+              </div>
             </div>
             <div class="form-switch">
               <h4>Lavamanos</h4>
-              <InputSwitch v-model="checkForm.checked4" />
+              <div class="p-field-checkbox p-m-0">
+                <TriStateCheckbox v-model="checkForm.value4" />
+                <label>{{
+                  checkForm.value4 == null
+                    ? ' Sin revisar'
+                    : checkForm.value4 == true
+                    ? ' Limpio'
+                    : ' Sucio'
+                }}</label>
+              </div>
             </div>
             <div class="form-switch">
               <h4>Soporte de líquidos</h4>
-              <InputSwitch v-model="checkForm.checked5" />
+              <div class="p-field-checkbox p-m-0">
+                <TriStateCheckbox v-model="checkForm.value5" />
+                <label>{{
+                  checkForm.value5 == null
+                    ? ' Sin revisar'
+                    : checkForm.value5 == true
+                    ? ' Limpio'
+                    : ' Sucio'
+                }}</label>
+              </div>
             </div>
           </div>
         </form>
@@ -64,29 +109,30 @@
 
 <script>
 import 'primeflex/primeflex.css'
-import InputSwitch from 'primevue/inputswitch'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
 import Dropdown from 'primevue/dropdown'
 import Knob from 'primevue/knob'
+import TriStateCheckbox from 'primevue/tristatecheckbox'
 
 export default {
   name: 'RevisionContainer',
   components: {
     Button,
-    InputSwitch,
     Card,
     Dropdown,
     Knob,
+    TriStateCheckbox,
   },
+
   data: () => {
     return {
       checkForm: {
-        checked1: false,
-        checked2: false,
-        checked3: false,
-        checked4: false,
-        checked5: false,
+        value1: null,
+        value2: null,
+        value3: null,
+        value4: null,
+        value5: null,
       },
       auditoriaDate: {
         id: '',
@@ -226,4 +272,3 @@ export default {
   }
 }
 </style>
-
