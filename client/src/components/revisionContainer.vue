@@ -2,15 +2,11 @@
   <div class="revision__container">
     <Card class="header__card">
       <template #content>
-        <h1>Auditoria</h1>
-        <strong> ID: {{ (auditoriaDate.id = '001') }} </strong>
+        <h2>Crear Auditoria</h2>
         <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
       </template>
     </Card>
     <Card class="sede__card">
-      <template #title>
-        <i class="pi pi-map-marker"></i> Seleccionar Sede
-      </template>
       <template #content>
         <Dropdown
           class="sede__select"
@@ -19,6 +15,10 @@
           optionLabel="name"
           placeholder="Selecciona una sede"
         />
+        <span class="aseador__input p-float-label">
+          <InputText id="aseador" type="text" v-model="aseador" />
+          <label for="aseador">Funcionario que realizó la limpieza:</label>
+        </span>
       </template>
     </Card>
     <Card class="clean-progress">
@@ -125,8 +125,12 @@ import Card from 'primevue/card'
 import Dropdown from 'primevue/dropdown'
 import Knob from 'primevue/knob'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
+import InputText from 'primevue/inputtext'
 
 export default {
+  created() {
+    this.returnDate()
+  },
   name: 'RevisionContainer',
   components: {
     Button,
@@ -134,6 +138,7 @@ export default {
     Dropdown,
     Knob,
     TriStateCheckbox,
+    InputText,
   },
 
   data: () => {
@@ -147,7 +152,7 @@ export default {
       },
       auditoriaDate: {
         id: '',
-        date: '17 septiembre 2021 14:00pm',
+        date: '',
       },
       selectedPlace: null,
       places: [
@@ -155,6 +160,7 @@ export default {
         { name: 'Sede Norte', code: 'SN' },
         { name: 'Sede Occidente', code: 'SO' },
       ],
+      aseador: '',
       cleanPercentage: 0,
       notCleanPercentage: 0,
     }
@@ -167,6 +173,8 @@ export default {
         )
       } else {
         console.log(Object.entries(this.checkForm))
+        console.log(this.aseador)
+        console.log(this.selectedPlace)
         alert('Auditoria registrada')
         // window.location.href = '/consultar'
       }
@@ -191,6 +199,22 @@ export default {
         }
       })
       return valid
+    },
+    returnDate() {
+      let today = new Date()
+      let dd = today.getDate()
+
+      let mm = today.getMonth() + 1
+      let yyyy = today.getFullYear()
+      if (dd < 10) {
+        dd = '0' + dd
+      }
+
+      if (mm < 10) {
+        mm = '0' + mm
+      }
+      today = dd + '/' + mm + '/' + yyyy
+      this.auditoriaDate.date = today
     },
   },
 }
@@ -267,6 +291,13 @@ export default {
 }
 
 .p-dropdown {
+  width: 100%;
+}
+
+.aseador__input {
+  width: 100%;
+}
+.aseador__input > input {
   width: 100%;
 }
 
