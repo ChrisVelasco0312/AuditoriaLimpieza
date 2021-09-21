@@ -5,9 +5,6 @@
         <h1>Auditoria</h1>
         <strong> ID: {{ (auditoriaDate.id = '001') }} </strong>
         <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
-        <div class="form-button">
-          <Button label="Registrar" @click="handleClick()" />
-        </div>
       </template>
     </Card>
     <Card class="sede__card">
@@ -27,7 +24,18 @@
     <Card class="clean-progress">
       <template #title> <i class="pi pi-percentage"></i> Porcentaje </template>
       <template #content>
-        <Knob v-model="progressValue" readonly />
+        <div class="percentage__info">
+          Limpio
+          <Knob class="clean-percentage" v-model="cleanPercentage" readonly />
+        </div>
+        <div class="percentage__info">
+          Sucio
+          <Knob
+            valueColor="var(--color-danger)"
+            v-model="notCleanPercentage"
+            readonly
+          />
+        </div>
       </template>
     </Card>
     <Card class="form__card">
@@ -38,11 +46,11 @@
             <div class="form-switch">
               <h4>Silla</h4>
               <div class="p-field-checkbox p-m-0">
-                <TriStateCheckbox v-model="checkForm.value1" />
+                <TriStateCheckbox v-model="checkForm.silla" />
                 <label>{{
-                  checkForm.value1 == null
+                  checkForm.silla == null
                     ? ' Sin revisar'
-                    : checkForm.value1 == true
+                    : checkForm.silla == true
                     ? ' Limpio'
                     : ' Sucio'
                 }}</label>
@@ -51,11 +59,11 @@
             <div class="form-switch">
               <h4>Camilla</h4>
               <div class="p-field-checkbox p-m-0">
-                <TriStateCheckbox v-model="checkForm.value2" />
+                <TriStateCheckbox v-model="checkForm.camilla" />
                 <label>{{
-                  checkForm.value2 == null
+                  checkForm.camilla == null
                     ? ' Sin revisar'
-                    : checkForm.value2 == true
+                    : checkForm.camilla == true
                     ? ' Limpio'
                     : ' Sucio'
                 }}</label>
@@ -64,11 +72,11 @@
             <div class="form-switch">
               <h4>Escritorio del consultorio</h4>
               <div class="p-field-checkbox p-m-0">
-                <TriStateCheckbox v-model="checkForm.value3" />
+                <TriStateCheckbox v-model="checkForm.escritorio" />
                 <label>{{
-                  checkForm.value3 == null
+                  checkForm.escritorio == null
                     ? ' Sin revisar'
-                    : checkForm.value3 == true
+                    : checkForm.escritorio == true
                     ? ' Limpio'
                     : ' Sucio'
                 }}</label>
@@ -77,11 +85,11 @@
             <div class="form-switch">
               <h4>Lavamanos</h4>
               <div class="p-field-checkbox p-m-0">
-                <TriStateCheckbox v-model="checkForm.value4" />
+                <TriStateCheckbox v-model="checkForm.lavamanos" />
                 <label>{{
-                  checkForm.value4 == null
+                  checkForm.lavamanos == null
                     ? ' Sin revisar'
-                    : checkForm.value4 == true
+                    : checkForm.lavamanos == true
                     ? ' Limpio'
                     : ' Sucio'
                 }}</label>
@@ -90,11 +98,11 @@
             <div class="form-switch">
               <h4>Soporte de líquidos</h4>
               <div class="p-field-checkbox p-m-0">
-                <TriStateCheckbox v-model="checkForm.value5" />
+                <TriStateCheckbox v-model="checkForm.soporteLiquidos" />
                 <label>{{
-                  checkForm.value5 == null
+                  checkForm.soporteLiquidos == null
                     ? ' Sin revisar'
-                    : checkForm.value5 == true
+                    : checkForm.soporteLiquidos == true
                     ? ' Limpio'
                     : ' Sucio'
                 }}</label>
@@ -102,6 +110,9 @@
             </div>
           </div>
         </form>
+        <div class="form-button">
+          <Button label="Registrar" @click="handleClick()" icon="pi pi-plus" />
+        </div>
       </template>
     </Card>
   </div>
@@ -128,11 +139,11 @@ export default {
   data: () => {
     return {
       checkForm: {
-        value1: null,
-        value2: null,
-        value3: null,
-        value4: null,
-        value5: null,
+        silla: null,
+        camilla: null,
+        escritorio: null,
+        lavamanos: null,
+        soporteLiquidos: null,
       },
       auditoriaDate: {
         id: '',
@@ -144,23 +155,42 @@ export default {
         { name: 'Sede Norte', code: 'SN' },
         { name: 'Sede Occidente', code: 'SO' },
       ],
-      progressValue: 0,
+      cleanPercentage: 0,
+      notCleanPercentage: 0,
     }
   },
   methods: {
     handleClick() {
-      console.log(Object.values(this.checkForm))
+      if (!this.validate()) {
+        alert(
+          'No ha completado la revision, por favor revise todos los objetos.'
+        )
+      } else {
+        console.log(Object.entries(this.checkForm))
+        alert('Auditoria registrada')
+        // window.location.href = '/consultar'
+      }
     },
-    calcPercentage() {
+    calcPercentage(value) {
       let refreshValue = Object.values(this.checkForm).filter(
-        (item) => item === true
+        (item) => item === value
       ).length
       let calcProgress =
         (refreshValue * 100) / Object.values(this.checkForm).length
       return calcProgress
     },
     refreshPercentage() {
-      this.progressValue = this.calcPercentage()
+      this.cleanPercentage = this.calcPercentage(true)
+      this.notCleanPercentage = this.calcPercentage(false)
+    },
+    validate() {
+      let valid = true
+      Object.values(this.checkForm).forEach((item) => {
+        if (item == null) {
+          valid = false
+        }
+      })
+      return valid
     },
   },
 }
@@ -212,6 +242,11 @@ export default {
   width: 100%;
 }
 
+.form-button > Button {
+  width: 100%;
+  height: 100%;
+}
+
 .p-card {
   background-color: var(--color-light);
   height: fit-content;
@@ -249,6 +284,12 @@ export default {
 
 .p-progressbar.p-component.p-progressbar-determinate {
   border: 2px solid rgb(192, 191, 191);
+}
+
+.percentage__info {
+  display: grid;
+  place-items: center;
+  font-weight: 700;
 }
 
 @media (min-width: 600px) {
