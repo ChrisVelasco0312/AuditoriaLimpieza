@@ -7,5 +7,5 @@ Para la configuración inicial del proyecto se acuerda usar Vue 3 en combinació
 
 Se deja lista la carpeta server para la lógica de negocio con las dependencias actualizadas y los comandos.
 
-También se crea el archivo **ciclo_tres.code-workspace** para generar un espacio de trabajo con unas configuraciones estandar, de tal forma que cada miembro del equipo trabaje bajo las mismas.
+También se crea el archivo **ciclo_tres.code-workspace** para generar un espacio de trabajo con unas configuraciones estandar, de tal forma que cada miembro del equipo trabaje bajo las mismas..
 
