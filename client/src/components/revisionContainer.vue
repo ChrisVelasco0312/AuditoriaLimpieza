@@ -273,7 +273,7 @@ export default {
 
 .p-card {
   background-color: var(--color-light);
-  height: fit-content;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -325,9 +325,10 @@ export default {
 
 @media (min-width: 600px) {
   .header__card {
+    display: grid;
+    place-items: center;
     grid-column: 1 / 3;
-    height: 120px;
-    align-self: end;
+    height: 100%;
   }
 
   .form__card {
