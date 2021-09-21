@@ -1,25 +1,31 @@
 <template>
-  <Sidebar v-model:visible="visibleLeft" class="sidebar">
-    <section class="profile">
-      <img
-        src="@/assets/profile_photo.png"
-        alt="profilephoto"
-        class="profile__photo"
-      />
-      <div class="profile__info">
-        <h2 class="profile__name">Luisa Gaviria</h2>
-        <i href="#" class="profile__edit pi pi-user-edit" @click="openEdit"></i>
-      </div>
-    </section>
-    <Menu :model="items" />
-    <img class="logo" src="@/assets/logo.svg" alt="" />
-    <Button label="Cerrar Sesión" @click="signOut" />
-  </Sidebar>
-  <Button
-    class="sidebar-button"
-    icon="pi pi-list"
-    @click="handleMenu($event)"
-  />
+  <div>
+    <Sidebar v-model:visible="visibleLeft" class="sidebar">
+      <section class="profile">
+        <img
+          src="@/assets/profile_photo.png"
+          alt="profilephoto"
+          class="profile__photo"
+        />
+        <div class="profile__info">
+          <h2 class="profile__name">Luisa Gaviria</h2>
+          <i
+            href="#"
+            class="profile__edit pi pi-user-edit"
+            @click="openEdit"
+          ></i>
+        </div>
+      </section>
+      <Menu :model="items" />
+      <img class="logo" src="@/assets/logo.svg" alt="" />
+      <Button label="Cerrar Sesión" @click="signOut" />
+    </Sidebar>
+    <Button
+      class="sidebar-button"
+      icon="pi pi-list"
+      @click="handleMenu($event)"
+    />
+  </div>
 </template>
 
 <script>
@@ -76,7 +82,7 @@ export default {
 
 <style>
 .sidebar {
-  position: absolute;
+  position: fixed;
   background: var(--color-light);
   color: var(--color-primary);
   box-shadow: 3px 1px 1px 0px #0000001a;
