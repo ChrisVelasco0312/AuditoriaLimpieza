@@ -1,5 +1,5 @@
 <template>
-  <SidebarContainer v-show="isVisible" />
+  <SidebarContainer />
   <!-- <Button @click="toggleMenu" class="menu-button" icon="pi pi-list" /> -->
 </template>
 <script>
@@ -19,9 +19,7 @@ export default {
     // ColumnGroup,
   },
   data: () => {
-    return {
-      isVisible: false,
-    }
+    return {}
   },
   methods: {},
 }
