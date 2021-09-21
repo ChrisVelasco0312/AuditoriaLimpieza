@@ -271,7 +271,7 @@ export default {
 }
 
 .sede__card .p-card-content {
-  height: 120px;
+  height: 150px;
 }
 
 .clean-progress {

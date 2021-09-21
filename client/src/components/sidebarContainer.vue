@@ -18,7 +18,7 @@
   <Button
     class="sidebar-button"
     icon="pi pi-list"
-    @click="visibleLeft = true"
+    @click="handleMenu($event)"
   />
 </template>
 
@@ -58,6 +58,17 @@ export default {
     },
     signOut() {
       window.location.href = '/'
+    },
+    handleMenu() {
+      this.visibleLeft = true
+      setTimeout(() => {
+        const menuLinks = document.querySelectorAll('.p-menuitem-link')
+        menuLinks.forEach((link) => {
+          if (link.pathname == window.location.pathname) {
+            link.style.border = '1px solid var(--color-primary)'
+          }
+        })
+      }, 100)
     },
   },
 }
