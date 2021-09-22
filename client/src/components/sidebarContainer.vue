@@ -45,14 +45,14 @@ export default {
     return {
       items: [
         {
-          label: 'Crear Auditoría',
-          icon: 'pi pi-plus-circle',
-          to: '/registrar',
-        },
-        {
           label: 'Revisar Auditorias',
           icon: 'pi pi-book',
           to: '/consultar',
+        },
+        {
+          label: 'Crear Auditoría',
+          icon: 'pi pi-plus-circle',
+          to: '/registrar',
         },
       ],
       visibleLeft: false,
