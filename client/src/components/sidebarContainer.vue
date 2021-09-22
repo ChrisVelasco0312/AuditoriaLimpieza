@@ -16,7 +16,8 @@
           ></i>
         </div>
       </section>
-      <Menu :model="items" />
+      <Menu :model="items" @click="exitAlert($event)" />
+      <ConfirmPopup></ConfirmPopup>
       <img class="logo" src="@/assets/logo.svg" alt="" />
       <Button label="Cerrar Sesión" @click="signOut" />
     </Sidebar>
@@ -33,6 +34,7 @@ import 'primeflex/primeflex.css'
 import Menu from 'primevue/menu'
 import Button from 'primevue/button'
 import Sidebar from 'primevue/sidebar'
+import ConfirmPopup from 'primevue/confirmpopup'
 
 export default {
   name: 'SidebarContainer',
@@ -40,6 +42,7 @@ export default {
     Menu,
     Button,
     Sidebar,
+    ConfirmPopup,
   },
   data: () => {
     return {
@@ -47,7 +50,7 @@ export default {
         {
           label: 'Revisar Auditorias',
           icon: 'pi pi-book',
-          to: '/consultar',
+          // to: '/consultar',
         },
         {
           label: 'Crear Auditoría',
@@ -75,6 +78,19 @@ export default {
           }
         })
       }, 100)
+    },
+    exitAlert(event) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: 'Usted está realizando una auditoria, ¿desea cancelarla?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          window.location.href = '/consultar'
+        },
+        reject: () => {
+          return ''
+        },
+      })
     },
   },
 }

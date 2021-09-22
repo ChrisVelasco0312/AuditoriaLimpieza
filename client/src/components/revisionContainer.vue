@@ -8,8 +8,9 @@
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
           icon="pi pi-times"
-          @click="cancelarAuditoria"
+          @click="cancelarAuditoria($event)"
         />
+        <ConfirmPopup></ConfirmPopup>
       </template>
     </Card>
     <Card class="sede__card">
@@ -150,6 +151,7 @@ import Knob from 'primevue/knob'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
 import InputText from 'primevue/inputtext'
 import Dialog from 'primevue/dialog'
+import ConfirmPopup from 'primevue/confirmpopup'
 
 export default {
   created() {
@@ -164,6 +166,7 @@ export default {
     TriStateCheckbox,
     InputText,
     Dialog,
+    ConfirmPopup,
   },
 
   data: () => {
@@ -203,8 +206,18 @@ export default {
         // window.location.href = '/consultar'
       }
     },
-    cancelarAuditoria() {
-      window.location.href = '/consultar'
+    cancelarAuditoria(event) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: '¿Está seguro de que quiere cancelar la auditoría?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          window.location.href = '/consultar'
+        },
+        reject: () => {
+          return ''
+        },
+      })
     },
     calcPercentage(value) {
       let refreshValue = Object.values(this.checkForm).filter(
