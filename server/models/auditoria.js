@@ -14,7 +14,7 @@ let auditorSchema = new Schema(
     },
 
     fecha: {
-      type: Date,
+      type: String,
     },
     silla: {
       type: Boolean,
@@ -44,4 +44,3 @@ let auditorSchema = new Schema(
 )
 
 module.exports = mongoose.model('Auditoria', auditorSchema)
-
