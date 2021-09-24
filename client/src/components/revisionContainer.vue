@@ -4,6 +4,13 @@
       <template #content>
         <h2>Crear Auditoria</h2>
         <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
+        <Button
+          class="close-button shadow-3 p-button-danger"
+          label="cancelar auditoria"
+          icon="pi pi-times"
+          @click="cancelarAuditoria($event)"
+        />
+        <ConfirmPopup></ConfirmPopup>
       </template>
     </Card>
     <Card class="sede__card">
@@ -110,11 +117,28 @@
             </div>
           </div>
         </form>
-        <div class="form-button">
-          <Button label="Registrar" @click="handleClick()" icon="pi pi-plus" />
-        </div>
+        <Button
+          class="shadow-3 form-button"
+          label="Registrar"
+          @click="handleClick()"
+          icon="pi pi-plus"
+        />
       </template>
     </Card>
+    <Dialog
+      class="shadow-6"
+      header="Atención"
+      v-model:visible="displayAlert"
+      :modal="true"
+    >
+      <div class="confirmation-content">
+        <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
+        <span
+          >El formulario no ha sido completado <br />revise e intente
+          nuevamente</span
+        >
+      </div>
+    </Dialog>
   </div>
 </template>
 
@@ -126,6 +150,8 @@ import Dropdown from 'primevue/dropdown'
 import Knob from 'primevue/knob'
 import TriStateCheckbox from 'primevue/tristatecheckbox'
 import InputText from 'primevue/inputtext'
+import Dialog from 'primevue/dialog'
+import ConfirmPopup from 'primevue/confirmpopup'
 
 export default {
   created() {
@@ -139,6 +165,8 @@ export default {
     Knob,
     TriStateCheckbox,
     InputText,
+    Dialog,
+    ConfirmPopup,
   },
 
   data: () => {
@@ -163,14 +191,13 @@ export default {
       aseador: '',
       cleanPercentage: 0,
       notCleanPercentage: 0,
+      displayAlert: false,
     }
   },
   methods: {
     handleClick() {
       if (!this.validate()) {
-        alert(
-          'No ha completado la revision, por favor revise todos los objetos.'
-        )
+        this.displayAlert = true
       } else {
         console.log(Object.entries(this.checkForm))
         console.log(this.aseador)
@@ -178,6 +205,19 @@ export default {
         alert('Auditoria registrada')
         // window.location.href = '/consultar'
       }
+    },
+    cancelarAuditoria(event) {
+      this.$confirm.require({
+        target: event.currentTarget,
+        message: '¿Está seguro de que quiere cancelar la auditoría?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          window.location.href = '/consultar'
+        },
+        reject: () => {
+          return ''
+        },
+      })
     },
     calcPercentage(value) {
       let refreshValue = Object.values(this.checkForm).filter(
@@ -195,6 +235,10 @@ export default {
       let valid = true
       Object.values(this.checkForm).forEach((item) => {
         if (item == null) {
+          valid = false
+        } else if (!this.selectedPlace) {
+          valid = false
+        } else if (!this.aseador) {
           valid = false
         }
       })
@@ -266,14 +310,13 @@ export default {
   width: 100%;
 }
 
-.form-button > Button {
-  width: 100%;
-  height: 100%;
+.form-button {
+  padding: 1rem;
 }
 
 .p-card {
   background-color: var(--color-light);
-  height: fit-content;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -323,11 +366,19 @@ export default {
   font-weight: 700;
 }
 
+.confirmation-content {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
 @media (min-width: 600px) {
   .header__card {
+    display: grid;
+    place-items: center;
     grid-column: 1 / 3;
-    height: 120px;
-    align-self: end;
+    height: 100%;
   }
 
   .form__card {

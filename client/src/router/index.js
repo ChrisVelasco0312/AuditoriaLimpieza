@@ -9,15 +9,14 @@ const routes = [
     component: () => import('../components/Autenticacion'),
   },
   {
-    path: '/registrar',
-    name: 'Registrar',
-    component: () => import('../components/CrearRevisionDeLimpieza'),
-  },
-
-  {
     path: '/consultar',
     name: 'Consultar',
     component: () => import('../components/ListarRevisiones'),
+  },
+  {
+    path: '/registrar',
+    name: 'Registrar',
+    component: () => import('../components/CrearRevisionDeLimpieza'),
   },
 ]
 
