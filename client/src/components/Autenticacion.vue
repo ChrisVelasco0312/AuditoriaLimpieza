@@ -52,7 +52,7 @@ export default {
   methods: {
     handleSubmitForm() {
       this.nameValue == 'demo' && this.passwordValue == 'demo'
-        ? (window.location.href = '/registrar')
+        ? (window.location.href = '/consultar')
         : (this.display = true)
     },
   },

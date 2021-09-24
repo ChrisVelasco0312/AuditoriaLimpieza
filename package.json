@@ -1,0 +1,20 @@
+{
+  "name": "AuditoriaLimpieza",
+  "version": "1.0.0",
+  "description": "Repositorio del proyecto de Auditoria de limpieza médica, desarrollado dentro del marco del ciclo 3 Misión TIC UTP 2021",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subcorporeal/AuditoriaLimpieza.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/subcorporeal/AuditoriaLimpieza/issues"
+  },
+  "homepage": "https://github.com/subcorporeal/AuditoriaLimpieza#readme"
+}
