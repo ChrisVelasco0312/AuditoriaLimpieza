@@ -120,7 +120,7 @@
         <Button
           class="shadow-3 form-button"
           label="Registrar"
-          @click="handleClick()"
+          @click="handleForm()"
           icon="pi pi-plus"
         />
       </template>
@@ -153,6 +153,9 @@ import InputText from 'primevue/inputtext'
 import Dialog from 'primevue/dialog'
 import ConfirmPopup from 'primevue/confirmpopup'
 
+//Axios Import
+import axios from 'axios'
+
 export default {
   created() {
     this.returnDate()
@@ -178,10 +181,7 @@ export default {
         lavamanos: null,
         soporteLiquidos: null,
       },
-      auditoriaDate: {
-        id: '',
-        date: '',
-      },
+      auditoriaDate: '',
       selectedPlace: null,
       places: [
         { name: 'Sede Sur', code: 'SS' },
@@ -195,14 +195,44 @@ export default {
     }
   },
   methods: {
-    handleClick() {
+    handleForm() {
       if (!this.validate()) {
         this.displayAlert = true
       } else {
-        console.log(Object.entries(this.checkForm))
-        console.log(this.aseador)
-        console.log(this.selectedPlace)
+        let auditoria = {
+          nombreAuditor: 'Cecilia Diaz',
+          sede: this.selectedPlace.name,
+          aseador: this.aseador,
+          fecha: this.auditoriaDate,
+          silla: this.checkForm.silla,
+          escritorio: this.checkForm.escritorio,
+          lavamanos: this.checkForm.lavamanos,
+          soporte: this.checkForm.soporteLiquidos,
+          porcentajeSucio: this.notCleanPercentage,
+          porcentajeLimpio: this.cleanPercentage,
+        }
         alert('Auditoria registrada')
+        let apiURL = 'http://localhost:3000/api/registrar'
+        axios
+          .post(apiURL, auditoria)
+          .then(() => {
+            this.$router.push('/consultar')
+            auditoria = {
+              nombreAuditor: '',
+              sede: null,
+              aseador: '',
+              fecha: '',
+              silla: null,
+              escritorio: null,
+              lavamanos: null,
+              soporte: null,
+              porcentajeSucio: 0,
+              porcentajeLimpio: 0,
+            }
+          })
+          .catch((error) => {
+            console.log(error)
+          })
         // window.location.href = '/consultar'
       }
     },
@@ -258,7 +288,7 @@ export default {
         mm = '0' + mm
       }
       today = dd + '/' + mm + '/' + yyyy
-      this.auditoriaDate.date = today
+      this.auditoriaDate = today
     },
   },
 }
