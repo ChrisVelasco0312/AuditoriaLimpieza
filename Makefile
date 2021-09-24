@@ -9,7 +9,7 @@ install-server:
 	cd server && npm install
 
 run-server:
-	cd server && npm run index
+	cd server && npm run app
 
 purge-client:
 	cd client && rm -rf ./node_modules 
