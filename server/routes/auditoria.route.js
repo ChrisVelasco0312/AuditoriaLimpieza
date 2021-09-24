@@ -4,7 +4,7 @@ const auditoriaRoute = express.Router();
 // Auditoria model
 let AuditoriaModel = require("../models/Auditoria");
 
-auditoriaRoute.route("/").get((req, res) => {
+auditoriaRoute.route("/consultar").get((req, res) => {
   AuditoriaModel.find((error, data, next) => {
     if (error) {
       return next(error);
