@@ -3,7 +3,7 @@
     <Card class="header__card">
       <template #content>
         <h2>Crear Auditoria</h2>
-        <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
+        <p><b>fecha</b>: {{ auditoriaDate }}</p>
         <Button
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
