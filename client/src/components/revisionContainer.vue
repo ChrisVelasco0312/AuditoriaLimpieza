@@ -3,7 +3,7 @@
     <Card class="header__card">
       <template #content>
         <h2>Crear Auditoria</h2>
-        <p><b>fecha</b>: {{ auditoriaDate.date }}</p>
+        <p><b>fecha</b>: {{ auditoriaDate }}</p>
         <Button
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
@@ -205,6 +205,7 @@ export default {
           aseador: this.aseador,
           fecha: this.auditoriaDate,
           silla: this.checkForm.silla,
+          camilla: this.checkForm.camilla,
           escritorio: this.checkForm.escritorio,
           lavamanos: this.checkForm.lavamanos,
           soporte: this.checkForm.soporteLiquidos,
@@ -223,6 +224,7 @@ export default {
               aseador: '',
               fecha: '',
               silla: null,
+              camilla: null,
               escritorio: null,
               lavamanos: null,
               soporte: null,

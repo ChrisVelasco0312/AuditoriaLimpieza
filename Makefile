@@ -2,14 +2,14 @@
 serve-client:
 	cd client && npm run serve
 
+run-server:
+	cd server && npm run app
+
 install-client:
 	cd client && npm install
 
 install-server:
 	cd server && npm install
-
-run-server:
-	cd server && npm run app
 
 purge-client:
 	cd client && rm -rf ./node_modules 
