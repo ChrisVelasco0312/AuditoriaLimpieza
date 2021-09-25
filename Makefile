@@ -1,5 +1,5 @@
 # Nuestro archivo de comandos.
-serve-client:
+run-client:
 	cd client && npm run serve
 
 run-server:
