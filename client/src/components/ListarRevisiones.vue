@@ -11,11 +11,15 @@
                 <i class="pi pi-book"></i>
                 <h1>Revisar Auditorias</h1>
               </div>
-              <Button icon="pi pi-plus-circle" label="Nueva Auditoria" />
+              <Button
+                icon="pi pi-plus-circle"
+                label="Nueva Auditoria"
+                @click="onNew"
+              />
               <Button
                 icon="pi pi-external-link"
                 label="Exportar a CSV"
-                @click="exportCSV($event)"
+                @click="exportCSV()"
               />
             </header>
           </template>
@@ -39,6 +43,29 @@
             header="Porcentaje Limpio"
             :sortable="true"
           ></Column>
+          <!-- Estos datos no están en vista pero se despliegan al exportar -->
+          <Column field="silla" header="silla" style="display: none"></Column>
+          <Column
+            field="camilla"
+            header="camilla"
+            style="display: none"
+          ></Column>
+          <Column
+            field="escritorio"
+            header="escritorio"
+            style="display: none"
+          ></Column>
+          <Column
+            field="lavamanos"
+            header="lavamanos"
+            style="display: none"
+          ></Column>
+          <Column
+            field="soporte"
+            header="soporte"
+            style="display: none"
+          ></Column>
+          <!-- ------------------------------------------------------------ -->
           <Column header="Objetos">
             <template #body="slotProps">
               <ul class="object__list">
@@ -68,16 +95,18 @@
 
           <Column header="Editar y Eliminar">
             <template #body>
-              <Button
-                class="p-button-rounded"
-                icon="pi pi-pencil"
-                @click="onEdit"
-              />
-              <Button
-                class="p-button-rounded p-button-danger"
-                icon="pi pi-times"
-                @click="onDelete"
-              />
+              <div class="revisiones__actions">
+                <Button
+                  class="p-button-rounded"
+                  icon="pi pi-pencil"
+                  @click="onEdit"
+                />
+                <Button
+                  class="p-button-rounded p-button-danger"
+                  icon="pi pi-times"
+                  @click="onDelete"
+                />
+              </div>
             </template>
           </Column>
         </DataTable>
@@ -146,6 +175,9 @@ export default {
     // this.revisionesService.getRevisiones().then(data => this.revisiones = data)
   },
   methods: {
+    onNew() {
+      window.location.href = '/registrar'
+    },
     onEdit() {
       console.log('edited')
     },
@@ -184,6 +216,11 @@ export default {
   all: inherit;
 }
 
+.auditorias__list--entries {
+  position: relative;
+  z-index: 1;
+}
+
 .object__list {
   display: grid;
   gap: 0.2rem;
@@ -194,6 +231,12 @@ export default {
 
 .object__list > li {
   background: var(--color-accent-light);
+}
+
+.revisiones__actions {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1rem;
 }
 </style>
 

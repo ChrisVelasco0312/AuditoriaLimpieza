@@ -16,3 +16,7 @@ purge-client:
 
 purge-server:
 	cd ../ && cd server && rm -rf ./node_modules 
+
+## Linux Only
+mongo-start:
+	sudo service mongodb start

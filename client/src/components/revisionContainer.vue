@@ -8,7 +8,7 @@
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
           icon="pi pi-times"
-          @click="cancelarAuditoria($event)"
+          @click.passive="cancelarAuditoria($event)"
         />
         <ConfirmPopup></ConfirmPopup>
       </template>
@@ -48,8 +48,8 @@
     <Card class="form__card">
       <template #title> Objetos a revisar </template>
       <template #content>
-        <form class="revision__form" @submit.prevent="handleSubmitForm">
-          <div class="form-group" @click="refreshPercentage">
+        <form class="revision__form" @submit.prevent.passive>
+          <div class="form-group" @click.passive="refreshPercentage">
             <div class="form-switch">
               <h4>Silla</h4>
               <div class="p-field-checkbox p-m-0">
@@ -120,7 +120,7 @@
         <Button
           class="shadow-3 form-button"
           label="Registrar"
-          @click="handleForm()"
+          @click.passive="handleForm()"
           icon="pi pi-plus"
         />
       </template>
@@ -212,7 +212,6 @@ export default {
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
-        alert('Auditoria registrada')
         let apiURL = 'http://localhost:3000/api/registrar'
         axios
           .post(apiURL, auditoria)
@@ -231,8 +230,9 @@ export default {
               porcentajeSucio: 0,
               porcentajeLimpio: 0,
             }
+            console.log('auditoria registrada')
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error)
           })
         // window.location.href = '/consultar'
@@ -253,7 +253,7 @@ export default {
     },
     calcPercentage(value) {
       let refreshValue = Object.values(this.checkForm).filter(
-        (item) => item === value
+        item => item === value
       ).length
       let calcProgress =
         (refreshValue * 100) / Object.values(this.checkForm).length
@@ -265,7 +265,7 @@ export default {
     },
     validate() {
       let valid = true
-      Object.values(this.checkForm).forEach((item) => {
+      Object.values(this.checkForm).forEach(item => {
         if (item == null) {
           valid = false
         } else if (!this.selectedPlace) {
