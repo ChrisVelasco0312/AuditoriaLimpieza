@@ -1,10 +1,9 @@
 <template>
   <div class="revisiones__container">
     <SidebarContainer />
-
     <div class="auditorias__list">
       <section class="auditorias__list--entries">
-        <DataTable :value="revisiones" showGridlines dataKey="id" ref="dt">
+        <DataTable :value="revisiones" showGridlines dataKey="_id" ref="dt">
           <template #header>
             <header class="auditorias__list--header">
               <div class="auditorias__list--title">
@@ -20,52 +19,34 @@
             </header>
           </template>
           <Column
-            field="id"
-            headerStyle="width: 3rem"
+            field="_id"
+            headerStyle="width: 15rem"
             header="Id"
             :sortable="true"
           />
           <Column field="nombreAuditor" header="Auditor"></Column>
           <Column field="sede" header="Sede"></Column>
           <Column field="aseador" header="Aseador"></Column>
-          <Column field="fecha" header="Fecha"></Column>
           <Column
-            field="porcentajeSucio"
-            header="Porcentaje Sucio"
-            :sortable="true"
+            field="fecha"
+            headerStyle="width: 7rem"
+            header="Fecha"
           ></Column>
+          <Column field="silla" header="Silla"></Column>
+          <Column field="camilla" header="Camilla"></Column>
+          <Column field="escritorio" header="Escritorio"></Column>
+          <Column field="lavamanos" header="Lavamanos"></Column>
+          <Column field="soporte" header="Soporte"></Column>
           <Column
             field="porcentajeLimpio"
-            header="Porcentaje Limpio"
+            header="% Limpio"
             :sortable="true"
           ></Column>
-          <Column header="Objetos">
-            <template #body="slotProps">
-              <ul class="object__list">
-                <li>
-                  <b> Silla: </b>
-                  {{ slotProps.data.silla == true ? 'limpio' : 'sucio' }}
-                </li>
-                <li>
-                  <b> Camilla: </b>
-                  {{ slotProps.data.camilla == true ? 'limpio' : 'sucio' }}
-                </li>
-                <li>
-                  <b> Escritorio: </b>
-                  {{ slotProps.data.escritorio == true ? 'limpio' : 'sucio' }}
-                </li>
-                <li>
-                  <b> Lavamanos: </b>
-                  {{ slotProps.data.lavamanos == true ? 'limpio' : 'sucio' }}
-                </li>
-                <li>
-                  <b> Soporte: </b>
-                  {{ slotProps.data.soporte == true ? 'limpio' : 'sucio' }}
-                </li>
-              </ul>
-            </template>
-          </Column>
-
+          <Column
+            field="porcentajeSucio"
+            header="% Sucio"
+            :sortable="true"
+          ></Column>
           <Column header="Editar y Eliminar">
             <template #body>
               <Button
@@ -90,8 +71,6 @@
 import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
-// import ColumnGroup from 'primevue/columngroup'
-// import RevisionesService from '../services/revisiones.service'
 import SidebarContainer from './sidebarContainer.vue'
 
 export default {
@@ -103,49 +82,25 @@ export default {
     Column,
     // ColumnGroup,
   },
-  data: () => {
+
+  data() {
     return {
-      //TODO: Reemplazar el mock por null
-      revisiones: [
-        {
-          id: '1',
-          nombreAuditor: 'Maria',
-          sede: 'Sede-Sur',
-          aseador: 'Jonas Mauricio',
-          fecha: '23/09/2021',
-          silla: false,
-          camilla: true,
-          escritorio: true,
-          lavamanos: false,
-          soporte: true,
-          porcentajeSucio: 40,
-          porcentajeLimpio: 60,
-        },
-        {
-          id: '2',
-          nombreAuditor: 'Romario',
-          sede: 'Sede-Norte',
-          aseador: 'Rajulio Del Alma',
-          fecha: '25/09/2021',
-          silla: true,
-          camilla: true,
-          escritorio: true,
-          lavamanos: true,
-          soporte: true,
-          porcentajeSucio: 0,
-          porcentajeLimpio: 100,
-        },
-      ],
+      revisiones: [],
     }
   },
-  created: () => {
-    //TODO: Crear Service para Revisiones que reciba el get de las auditorias
-    // this.revisionesService = new RevisionesService()
-  },
-  mounted: () => {
-    // this.revisionesService.getRevisiones().then(data => this.revisiones = data)
-  },
+
   methods: {
+    async getData() {
+      try {
+        const response = await this.$http.get(
+          'http://localhost:3000/api/consultar'
+        )
+        this.revisiones = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
     onEdit() {
       console.log('edited')
     },
@@ -156,17 +111,26 @@ export default {
       this.$refs.dt.exportCSV()
     },
   },
+
+  created() {
+    this.getData()
+  },
 }
 </script>
 
 <style>
 .revisiones__container {
+  max-width: 1420px;
+  margin: 0 auto;
   display: grid;
+  width: 100vw;
+  height: unset;
+  padding: 1rem;
 }
 
 .auditorias__list {
   padding: 1rem;
-  width: 100vw;
+  width: 80vw;
 }
 
 .auditorias__list--header {
@@ -196,6 +160,3 @@ export default {
   background: var(--color-accent-light);
 }
 </style>
-
-
-
