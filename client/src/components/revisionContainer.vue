@@ -195,6 +195,56 @@ export default {
     }
   },
   methods: {
+    finalStringSilla() {
+      let newStringSilla = this.checkForm.silla
+      if (newStringSilla == true) {
+        newStringSilla = 'Limpio'
+      } else if (newStringSilla == false) {
+        newStringSilla = 'Sucio'
+      }
+      return newStringSilla
+    },
+
+    finalStringCamilla() {
+      let newStringCamilla = this.checkForm.camilla
+      if (newStringCamilla == true) {
+        newStringCamilla = 'Limpio'
+      } else if (newStringCamilla == false) {
+        newStringCamilla = 'Sucio'
+      }
+      return newStringCamilla
+    },
+
+    finalStringEscritorio() {
+      let newStringEscritorio = this.checkForm.escritorio
+      if (newStringEscritorio == true) {
+        newStringEscritorio = 'Limpio'
+      } else if (newStringEscritorio == false) {
+        newStringEscritorio = 'Sucio'
+      }
+      return newStringEscritorio
+    },
+
+    finalStringLavamanos() {
+      let newStringLavamanos = this.checkForm.lavamanos
+      if (newStringLavamanos == true) {
+        newStringLavamanos = 'Limpio'
+      } else if (newStringLavamanos == false) {
+        newStringLavamanos = 'Sucio'
+      }
+      return newStringLavamanos
+    },
+
+    finalStringSoporte() {
+      let newStringSoporte = this.checkForm.soporteLiquidos
+      if (newStringSoporte == true) {
+        newStringSoporte = 'Limpio'
+      } else if (newStringSoporte == false) {
+        newStringSoporte = 'Sucio'
+      }
+      return newStringSoporte
+    },
+
     handleForm() {
       if (!this.validate()) {
         this.displayAlert = true
@@ -204,14 +254,18 @@ export default {
           sede: this.selectedPlace.name,
           aseador: this.aseador,
           fecha: this.auditoriaDate,
-          silla: this.checkForm.silla,
-          camilla: this.checkForm.camilla,
-          escritorio: this.checkForm.escritorio,
-          lavamanos: this.checkForm.lavamanos,
-          soporte: this.checkForm.soporteLiquidos,
+
+          silla: this.finalStringSilla(),
+          camilla: this.finalStringCamilla(),
+          escritorio: this.finalStringEscritorio(),
+          lavamanos: this.finalStringLavamanos(),
+          soporte: this.finalStringSoporte(),
+
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
+
+        alert('Auditoria registrada')
         let apiURL = 'http://localhost:3000/api/registrar'
         axios
           .post(apiURL, auditoria)
@@ -222,11 +276,11 @@ export default {
               sede: null,
               aseador: '',
               fecha: '',
-              silla: null,
-              camilla: null,
-              escritorio: null,
-              lavamanos: null,
-              soporte: null,
+              silla: '',
+              camilla: '',
+              escritorio: '',
+              lavamanos: '',
+              soporte: '',
               porcentajeSucio: 0,
               porcentajeLimpio: 0,
             }
@@ -263,6 +317,7 @@ export default {
       this.cleanPercentage = this.calcPercentage(true)
       this.notCleanPercentage = this.calcPercentage(false)
     },
+
     validate() {
       let valid = true
       Object.values(this.checkForm).forEach(item => {

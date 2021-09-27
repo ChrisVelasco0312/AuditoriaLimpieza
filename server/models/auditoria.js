@@ -17,19 +17,19 @@ let auditorSchema = new Schema(
       type: String,
     },
     silla: {
-      type: Boolean,
+      type: String,
     },
     camilla: {
-      type: Boolean,
+      type: String,
     },
     escritorio: {
-      type: Boolean,
+      type: String,
     },
     lavamanos: {
-      type: Boolean,
+      type: String,
     },
     soporte: {
-      type: Boolean,
+      type: String,
     },
     porcentajeSucio: {
       type: Number,
