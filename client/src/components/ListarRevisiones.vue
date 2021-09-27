@@ -82,23 +82,23 @@
               <ul class="object__list">
                 <li>
                   <b> Silla: </b>
-                  {{ slotProps.data.silla == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.silla }}
                 </li>
                 <li>
                   <b> Camilla: </b>
-                  {{ slotProps.data.camilla == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.camilla }}
                 </li>
                 <li>
                   <b> Escritorio: </b>
-                  {{ slotProps.data.escritorio == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.escritorio }}
                 </li>
                 <li>
                   <b> Lavamanos: </b>
-                  {{ slotProps.data.lavamanos == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.lavamanos }}
                 </li>
                 <li>
                   <b> Soporte: </b>
-                  {{ slotProps.data.soporte == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.soporte }}
                 </li>
               </ul>
             </template>
