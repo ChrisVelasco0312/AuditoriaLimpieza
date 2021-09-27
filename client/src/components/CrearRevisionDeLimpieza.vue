@@ -16,17 +16,6 @@ export default {
     SidebarContainer,
     RevisionContainer,
   },
-  data: () => {
-    return {
-      isVisible: false,
-    }
-  },
-  methods: {
-    handleClick($event) {
-      console.log($event)
-      console.log(this.checkForm)
-    },
-  },
 }
 </script>
 
