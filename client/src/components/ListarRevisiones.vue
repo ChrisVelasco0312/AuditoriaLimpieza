@@ -3,7 +3,15 @@
     <SidebarContainer />
     <div class="auditorias__list">
       <section class="auditorias__list--entries">
-        <DataTable :value="revisiones" showGridlines dataKey="_id" ref="dt">
+        <DataTable
+          :value="revisiones"
+          showGridlines
+          dataKey="_id"
+          ref="dt"
+          :paginator="true"
+          :rows="3"
+          stripedRows
+        >
           <template #header>
             <header class="auditorias__list--header">
               <div class="auditorias__list--title">
@@ -137,6 +145,7 @@ export default {
   data() {
     return {
       revisiones: [],
+      // loading: false,
     }
   },
 
@@ -183,8 +192,9 @@ export default {
 }
 
 .auditorias__list {
+  margin: 0 auto;
   padding: 1rem;
-  width: 80vw;
+  width: 90vw;
 }
 
 .auditorias__list--header {
@@ -204,6 +214,14 @@ export default {
 
 .auditorias__list--entries {
   position: relative;
+  overflow: auto;
+  height: 90vh;
+  z-index: 1;
+}
+
+.p-datatable-header {
+  position: sticky;
+  top: 0px;
   z-index: 1;
 }
 
@@ -220,9 +238,9 @@ export default {
 }
 
 .revisiones__actions {
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 </style>
 
