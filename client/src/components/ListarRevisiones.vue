@@ -36,11 +36,6 @@
             headerStyle="width: 7rem"
             header="Fecha"
           ></Column>
-          <Column field="silla" header="Silla"></Column>
-          <Column field="camilla" header="Camilla"></Column>
-          <Column field="escritorio" header="Escritorio"></Column>
-          <Column field="lavamanos" header="Lavamanos"></Column>
-          <Column field="soporte" header="Soporte"></Column>
           <Column
             field="porcentajeLimpio"
             header="% Limpio"
