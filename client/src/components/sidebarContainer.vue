@@ -16,15 +16,15 @@
           ></i>
         </div>
       </section>
-      <Menu :model="items" @click="exitAlert($event)" />
+      <Menu :model="items" @click.passive="exitAlert($event)" />
       <ConfirmPopup></ConfirmPopup>
       <img class="logo" src="@/assets/logo.svg" alt="" />
       <Button label="Cerrar Sesión" @click="signOut" />
     </Sidebar>
     <Button
-      class="sidebar-button"
+      class="sidebar-button shadow-5"
       icon="pi pi-list"
-      @click="handleMenu($event)"
+      @click.passive="handleMenu()"
     />
   </div>
 </template>
@@ -72,7 +72,7 @@ export default {
       this.visibleLeft = true
       setTimeout(() => {
         const menuLinks = document.querySelectorAll('.p-menuitem-link')
-        menuLinks.forEach((link) => {
+        menuLinks.forEach(link => {
           if (link.pathname == window.location.pathname) {
             link.style.border = '1px solid var(--color-primary)'
           }
@@ -80,17 +80,19 @@ export default {
       }, 100)
     },
     exitAlert(event) {
-      this.$confirm.require({
-        target: event.currentTarget,
-        message: 'Usted está realizando una auditoria, ¿desea cancelarla?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-          window.location.href = '/consultar'
-        },
-        reject: () => {
-          return ''
-        },
-      })
+      if (window.location.pathname == '/registrar') {
+        this.$confirm.require({
+          target: event.currentTarget,
+          message: 'Usted está realizando una auditoria, ¿desea cancelarla?',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+            window.location.href = '/consultar'
+          },
+          reject: () => {
+            return ''
+          },
+        })
+      }
     },
   },
 }
@@ -139,6 +141,7 @@ section.profile {
 
 .sidebar-button {
   position: fixed;
+  z-index: 2;
   top: 20px;
   left: 20px;
 }

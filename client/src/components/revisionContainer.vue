@@ -8,7 +8,7 @@
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
           icon="pi pi-times"
-          @click="cancelarAuditoria($event)"
+          @click.passive="cancelarAuditoria($event)"
         />
         <ConfirmPopup></ConfirmPopup>
       </template>
@@ -48,8 +48,8 @@
     <Card class="form__card">
       <template #title> Objetos a revisar </template>
       <template #content>
-        <form class="revision__form" @submit.prevent="handleSubmitForm">
-          <div class="form-group" @click="refreshPercentage">
+        <form class="revision__form" @submit.prevent.passive>
+          <div class="form-group" @click.passive="refreshPercentage">
             <div class="form-switch">
               <h4>Silla</h4>
               <div class="p-field-checkbox p-m-0">
@@ -120,7 +120,7 @@
         <Button
           class="shadow-3 form-button"
           label="Registrar"
-          @click="handleForm()"
+          @click.passive="handleForm()"
           icon="pi pi-plus"
         />
       </template>
@@ -195,54 +195,14 @@ export default {
     }
   },
   methods: {
-    finalStringSilla() {
-      let newStringSilla = this.checkForm.silla
-      if (newStringSilla == true) {
-        newStringSilla = 'Limpio'
-      } else if (newStringSilla == false) {
-        newStringSilla = 'Sucio'
+    finalStringObject(object) {
+      let newString = this.checkForm[`${object}`]
+      if (newString == true) {
+        newString = 'Limpio'
+      } else if (newString == false) {
+        newString = 'Sucio'
       }
-      return newStringSilla
-    },
-
-    finalStringCamilla() {
-      let newStringCamilla = this.checkForm.camilla
-      if (newStringCamilla == true) {
-        newStringCamilla = 'Limpio'
-      } else if (newStringCamilla == false) {
-        newStringCamilla = 'Sucio'
-      }
-      return newStringCamilla
-    },
-
-    finalStringEscritorio() {
-      let newStringEscritorio = this.checkForm.escritorio
-      if (newStringEscritorio == true) {
-        newStringEscritorio = 'Limpio'
-      } else if (newStringEscritorio == false) {
-        newStringEscritorio = 'Sucio'
-      }
-      return newStringEscritorio
-    },
-
-    finalStringLavamanos() {
-      let newStringLavamanos = this.checkForm.lavamanos
-      if (newStringLavamanos == true) {
-        newStringLavamanos = 'Limpio'
-      } else if (newStringLavamanos == false) {
-        newStringLavamanos = 'Sucio'
-      }
-      return newStringLavamanos
-    },
-
-    finalStringSoporte() {
-      let newStringSoporte = this.checkForm.soporteLiquidos
-      if (newStringSoporte == true) {
-        newStringSoporte = 'Limpio'
-      } else if (newStringSoporte == false) {
-        newStringSoporte = 'Sucio'
-      }
-      return newStringSoporte
+      return newString
     },
 
     handleForm() {
@@ -255,17 +215,15 @@ export default {
           aseador: this.aseador,
           fecha: this.auditoriaDate,
 
-          silla: this.finalStringSilla(),
-          camilla: this.finalStringCamilla(),
-          escritorio: this.finalStringEscritorio(),
-          lavamanos: this.finalStringLavamanos(),
-          soporte: this.finalStringSoporte(),
+          silla: this.finalStringObject('silla'),
+          camilla: this.finalStringObject('camilla'),
+          escritorio: this.finalStringObject('escritorio'),
+          lavamanos: this.finalStringObject('lavamanos'),
+          soporte: this.finalStringObject('soporteLiquidos'),
 
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
-
-        alert('Auditoria registrada')
         let apiURL = 'http://localhost:3000/api/registrar'
         axios
           .post(apiURL, auditoria)
@@ -284,6 +242,7 @@ export default {
               porcentajeSucio: 0,
               porcentajeLimpio: 0,
             }
+            console.log('auditoria registrada')
           })
           .catch((error) => {
             console.log(error)

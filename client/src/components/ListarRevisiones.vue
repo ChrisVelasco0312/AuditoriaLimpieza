@@ -3,18 +3,30 @@
     <SidebarContainer />
     <div class="auditorias__list">
       <section class="auditorias__list--entries">
-        <DataTable :value="revisiones" showGridlines dataKey="_id" ref="dt">
+        <DataTable
+          :value="revisiones"
+          showGridlines
+          dataKey="_id"
+          ref="dt"
+          :paginator="true"
+          :rows="3"
+          stripedRows
+        >
           <template #header>
             <header class="auditorias__list--header">
               <div class="auditorias__list--title">
                 <i class="pi pi-book"></i>
                 <h1>Revisar Auditorias</h1>
               </div>
-              <Button icon="pi pi-plus-circle" label="Nueva Auditoria" />
+              <Button
+                icon="pi pi-plus-circle"
+                label="Nueva Auditoria"
+                @click="onNew"
+              />
               <Button
                 icon="pi pi-external-link"
                 label="Exportar a CSV"
-                @click="exportCSV($event)"
+                @click="exportCSV()"
               />
             </header>
           </template>
@@ -47,18 +59,70 @@
             header="% Sucio"
             :sortable="true"
           ></Column>
+          <!-- Estos datos no están en vista pero se despliegan al exportar -->
+          <Column field="silla" header="silla" style="display: none"></Column>
+          <Column
+            field="camilla"
+            header="camilla"
+            style="display: none"
+          ></Column>
+          <Column
+            field="escritorio"
+            header="escritorio"
+            style="display: none"
+          ></Column>
+          <Column
+            field="lavamanos"
+            header="lavamanos"
+            style="display: none"
+          ></Column>
+          <Column
+            field="soporte"
+            header="soporte"
+            style="display: none"
+          ></Column>
+          <!-- ------------------------------------------------------------ -->
+          <Column header="Objetos">
+            <template #body="slotProps">
+              <ul class="object__list">
+                <li>
+                  <b> Silla: </b>
+                  {{ slotProps.data.silla }}
+                </li>
+                <li>
+                  <b> Camilla: </b>
+                  {{ slotProps.data.camilla }}
+                </li>
+                <li>
+                  <b> Escritorio: </b>
+                  {{ slotProps.data.escritorio }}
+                </li>
+                <li>
+                  <b> Lavamanos: </b>
+                  {{ slotProps.data.lavamanos }}
+                </li>
+                <li>
+                  <b> Soporte: </b>
+                  {{ slotProps.data.soporte }}
+                </li>
+              </ul>
+            </template>
+          </Column>
+
           <Column header="Editar y Eliminar">
             <template #body>
-              <Button
-                class="p-button-rounded"
-                icon="pi pi-pencil"
-                @click="onEdit"
-              />
-              <Button
-                class="p-button-rounded p-button-danger"
-                icon="pi pi-times"
-                @click="onDelete"
-              />
+              <div class="revisiones__actions">
+                <Button
+                  class="p-button-rounded"
+                  icon="pi pi-pencil"
+                  @click="onEdit"
+                />
+                <Button
+                  class="p-button-rounded p-button-danger"
+                  icon="pi pi-times"
+                  @click="onDelete"
+                />
+              </div>
             </template>
           </Column>
         </DataTable>
@@ -86,6 +150,7 @@ export default {
   data() {
     return {
       revisiones: [],
+      // loading: false,
     }
   },
 
@@ -101,6 +166,9 @@ export default {
       }
     },
 
+    onNew() {
+      window.location.href = '/registrar'
+    },
     onEdit() {
       console.log('edited')
     },
@@ -129,8 +197,9 @@ export default {
 }
 
 .auditorias__list {
+  margin: 0 auto;
   padding: 1rem;
-  width: 80vw;
+  width: 90vw;
 }
 
 .auditorias__list--header {
@@ -148,6 +217,19 @@ export default {
   all: inherit;
 }
 
+.auditorias__list--entries {
+  position: relative;
+  overflow: auto;
+  height: 90vh;
+  z-index: 1;
+}
+
+.p-datatable-header {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+
 .object__list {
   display: grid;
   gap: 0.2rem;
@@ -159,4 +241,13 @@ export default {
 .object__list > li {
   background: var(--color-accent-light);
 }
+
+.revisiones__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 </style>
+
+
+
