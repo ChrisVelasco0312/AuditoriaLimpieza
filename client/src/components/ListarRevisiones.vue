@@ -115,7 +115,7 @@
                 <Button
                   class="p-button-rounded p-button-danger"
                   icon="pi pi-times"
-                  @click="onDelete"
+                  @click="onDelete(revisiones._id)"
                 />
               </div>
             </template>
@@ -131,6 +131,7 @@ import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import SidebarContainer from './sidebarContainer.vue'
+import axios from 'axios'
 
 export default {
   name: 'ListarRevisiones',
@@ -167,8 +168,19 @@ export default {
     onEdit() {
       console.log('edited')
     },
-    onDelete() {
-      console.log('deleted')
+    onDelete(id) {
+      let apiURL = `http://localhost:3000/api/eliminar/${id}`
+      let indexOfArrayItem = this.revisiones.findIndex((i) => i._id === id)
+      if (window.confirm('Confirme Si Desea Eliminar')) {
+        axios
+          .delete(apiURL)
+          .then(() => {
+            this.revisiones.splice(indexOfArrayItem, 1)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
     },
     exportCSV() {
       this.$refs.dt.exportCSV()
@@ -243,6 +255,3 @@ export default {
   gap: 1rem;
 }
 </style>
-
-
-
