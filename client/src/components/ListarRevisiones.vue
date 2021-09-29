@@ -1,66 +1,104 @@
 <template>
   <div class="revisiones__container">
     <SidebarContainer />
-
     <div class="auditorias__list">
       <section class="auditorias__list--entries">
-        <DataTable :value="revisiones" showGridlines dataKey="id" ref="dt">
+        <DataTable
+          :value="revisiones"
+          showGridlines
+          dataKey="_id"
+          ref="dt"
+          :paginator="true"
+          :rows="3"
+          stripedRows
+        >
           <template #header>
             <header class="auditorias__list--header">
               <div class="auditorias__list--title">
                 <i class="pi pi-book"></i>
                 <h1>Revisar Auditorias</h1>
               </div>
-              <Button icon="pi pi-plus-circle" label="Nueva Auditoria" />
+              <Button
+                icon="pi pi-plus-circle"
+                label="Nueva Auditoria"
+                @click="onNew"
+              />
               <Button
                 icon="pi pi-external-link"
                 label="Exportar a CSV"
-                @click="exportCSV($event)"
+                @click="exportCSV()"
               />
             </header>
           </template>
           <Column
-            field="id"
-            headerStyle="width: 3rem"
+            field="_id"
+            headerStyle="width: 15rem"
             header="Id"
             :sortable="true"
           />
           <Column field="nombreAuditor" header="Auditor"></Column>
           <Column field="sede" header="Sede"></Column>
           <Column field="aseador" header="Aseador"></Column>
-          <Column field="fecha" header="Fecha"></Column>
           <Column
-            field="porcentajeSucio"
-            header="Porcentaje Sucio"
-            :sortable="true"
+            field="fecha"
+            headerStyle="width: 7rem"
+            header="Fecha"
           ></Column>
           <Column
             field="porcentajeLimpio"
-            header="Porcentaje Limpio"
+            header="% Limpio"
             :sortable="true"
           ></Column>
+          <Column
+            field="porcentajeSucio"
+            header="% Sucio"
+            :sortable="true"
+          ></Column>
+          <!-- Estos datos no están en vista pero se despliegan al exportar -->
+          <Column field="silla" header="silla" style="display: none"></Column>
+          <Column
+            field="camilla"
+            header="camilla"
+            style="display: none"
+          ></Column>
+          <Column
+            field="escritorio"
+            header="escritorio"
+            style="display: none"
+          ></Column>
+          <Column
+            field="lavamanos"
+            header="lavamanos"
+            style="display: none"
+          ></Column>
+          <Column
+            field="soporte"
+            header="soporte"
+            style="display: none"
+          ></Column>
+          <!-- ------------------------------------------------------------ -->
           <Column header="Objetos">
             <template #body="slotProps">
               <ul class="object__list">
                 <li>
                   <b> Silla: </b>
-                  {{ slotProps.data.silla == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.silla }}
                 </li>
                 <li>
                   <b> Camilla: </b>
-                  {{ slotProps.data.camilla == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.camilla }}
                 </li>
                 <li>
                   <b> Escritorio: </b>
-                  {{ slotProps.data.escritorio == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.escritorio }}
                 </li>
                 <li>
                   <b> Lavamanos: </b>
-                  {{ slotProps.data.lavamanos == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.lavamanos }}
                 </li>
                 <li>
                   <b> Soporte: </b>
-                  {{ slotProps.data.soporte == true ? 'limpio' : 'sucio' }}
+                  {{ slotProps.data.soporte }}
                 </li>
               </ul>
             </template>
@@ -68,16 +106,18 @@
 
           <Column header="Editar y Eliminar">
             <template #body>
-              <Button
-                class="p-button-rounded"
-                icon="pi pi-pencil"
-                @click="onEdit"
-              />
-              <Button
-                class="p-button-rounded p-button-danger"
-                icon="pi pi-times"
-                @click="onDelete"
-              />
+              <div class="revisiones__actions">
+                <Button
+                  class="p-button-rounded"
+                  icon="pi pi-pencil"
+                  @click="onEdit"
+                />
+                <Button
+                  class="p-button-rounded p-button-danger"
+                  icon="pi pi-times"
+                  @click="onDelete"
+                />
+              </div>
             </template>
           </Column>
         </DataTable>
@@ -90,8 +130,6 @@
 import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
-// import ColumnGroup from 'primevue/columngroup'
-// import RevisionesService from '../services/revisiones.service'
 import SidebarContainer from './sidebarContainer.vue'
 
 export default {
@@ -103,49 +141,29 @@ export default {
     Column,
     // ColumnGroup,
   },
-  data: () => {
+
+  data() {
     return {
-      //TODO: Reemplazar el mock por null
-      revisiones: [
-        {
-          id: '1',
-          nombreAuditor: 'Maria',
-          sede: 'Sede-Sur',
-          aseador: 'Jonas Mauricio',
-          fecha: '23/09/2021',
-          silla: false,
-          camilla: true,
-          escritorio: true,
-          lavamanos: false,
-          soporte: true,
-          porcentajeSucio: 40,
-          porcentajeLimpio: 60,
-        },
-        {
-          id: '2',
-          nombreAuditor: 'Romario',
-          sede: 'Sede-Norte',
-          aseador: 'Rajulio Del Alma',
-          fecha: '25/09/2021',
-          silla: true,
-          camilla: true,
-          escritorio: true,
-          lavamanos: true,
-          soporte: true,
-          porcentajeSucio: 0,
-          porcentajeLimpio: 100,
-        },
-      ],
+      revisiones: [],
+      // loading: false,
     }
   },
-  created: () => {
-    //TODO: Crear Service para Revisiones que reciba el get de las auditorias
-    // this.revisionesService = new RevisionesService()
-  },
-  mounted: () => {
-    // this.revisionesService.getRevisiones().then(data => this.revisiones = data)
-  },
+
   methods: {
+    async getData() {
+      try {
+        const response = await this.$http.get(
+          'http://localhost:3000/api/consultar'
+        )
+        this.revisiones = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    onNew() {
+      window.location.href = '/registrar'
+    },
     onEdit() {
       console.log('edited')
     },
@@ -156,17 +174,27 @@ export default {
       this.$refs.dt.exportCSV()
     },
   },
+
+  created() {
+    this.getData()
+  },
 }
 </script>
 
 <style>
 .revisiones__container {
+  max-width: 1420px;
+  margin: 0 auto;
   display: grid;
+  width: 100vw;
+  height: unset;
+  padding: 1rem;
 }
 
 .auditorias__list {
+  margin: 0 auto;
   padding: 1rem;
-  width: 100vw;
+  width: 90vw;
 }
 
 .auditorias__list--header {
@@ -184,6 +212,19 @@ export default {
   all: inherit;
 }
 
+.auditorias__list--entries {
+  position: relative;
+  overflow: auto;
+  height: 90vh;
+  z-index: 1;
+}
+
+.p-datatable-header {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+}
+
 .object__list {
   display: grid;
   gap: 0.2rem;
@@ -194,6 +235,12 @@ export default {
 
 .object__list > li {
   background: var(--color-accent-light);
+}
+
+.revisiones__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 </style>
 

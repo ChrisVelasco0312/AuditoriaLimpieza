@@ -8,7 +8,7 @@
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
           icon="pi pi-times"
-          @click="cancelarAuditoria($event)"
+          @click.passive="cancelarAuditoria($event)"
         />
         <ConfirmPopup></ConfirmPopup>
       </template>
@@ -48,8 +48,8 @@
     <Card class="form__card">
       <template #title> Objetos a revisar </template>
       <template #content>
-        <form class="revision__form" @submit.prevent="handleSubmitForm">
-          <div class="form-group" @click="refreshPercentage">
+        <form class="revision__form" @submit.prevent.passive>
+          <div class="form-group" @click.passive="refreshPercentage">
             <div class="form-switch">
               <h4>Silla</h4>
               <div class="p-field-checkbox p-m-0">
@@ -120,7 +120,7 @@
         <Button
           class="shadow-3 form-button"
           label="Registrar"
-          @click="handleForm()"
+          @click.passive="handleForm()"
           icon="pi pi-plus"
         />
       </template>
@@ -195,6 +195,16 @@ export default {
     }
   },
   methods: {
+    finalStringObject(object) {
+      let newString = this.checkForm[`${object}`]
+      if (newString == true) {
+        newString = 'Limpio'
+      } else if (newString == false) {
+        newString = 'Sucio'
+      }
+      return newString
+    },
+
     handleForm() {
       if (!this.validate()) {
         this.displayAlert = true
@@ -204,15 +214,16 @@ export default {
           sede: this.selectedPlace.name,
           aseador: this.aseador,
           fecha: this.auditoriaDate,
-          silla: this.checkForm.silla,
-          camilla: this.checkForm.camilla,
-          escritorio: this.checkForm.escritorio,
-          lavamanos: this.checkForm.lavamanos,
-          soporte: this.checkForm.soporteLiquidos,
+
+          silla: this.finalStringObject('silla'),
+          camilla: this.finalStringObject('camilla'),
+          escritorio: this.finalStringObject('escritorio'),
+          lavamanos: this.finalStringObject('lavamanos'),
+          soporte: this.finalStringObject('soporteLiquidos'),
+
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
-        alert('Auditoria registrada')
         let apiURL = 'http://localhost:3000/api/registrar'
         axios
           .post(apiURL, auditoria)
@@ -223,14 +234,15 @@ export default {
               sede: null,
               aseador: '',
               fecha: '',
-              silla: null,
-              camilla: null,
-              escritorio: null,
-              lavamanos: null,
-              soporte: null,
+              silla: '',
+              camilla: '',
+              escritorio: '',
+              lavamanos: '',
+              soporte: '',
               porcentajeSucio: 0,
               porcentajeLimpio: 0,
             }
+            console.log('auditoria registrada')
           })
           .catch((error) => {
             console.log(error)
@@ -263,6 +275,7 @@ export default {
       this.cleanPercentage = this.calcPercentage(true)
       this.notCleanPercentage = this.calcPercentage(false)
     },
+
     validate() {
       let valid = true
       Object.values(this.checkForm).forEach((item) => {
