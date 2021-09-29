@@ -1,5 +1,5 @@
 # Nuestro archivo de comandos.
-serve-client:
+run-client:
 	cd client && npm run serve
 
 run-server:
@@ -16,3 +16,7 @@ purge-client:
 
 purge-server:
 	cd ../ && cd server && rm -rf ./node_modules 
+
+## Linux Only
+mongo-start:
+	sudo service mongodb start
