@@ -19,3 +19,5 @@ Arir espacio de trabajo desde el archivo **ciclo_tres.code-workspace**
 3. Borrar ./node_modules
    - make purge-client
    - make purge-server
+4. Lanzar tests unitarios para el cliente:
+   - make coverage
