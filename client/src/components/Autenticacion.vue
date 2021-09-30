@@ -11,7 +11,11 @@
         <InputText id="password" type="password" v-model="passwordValue" />
       </span>
       <div class="login__actions">
-        <Button class="" label="Iniciar Sesion" @click="handleSubmitForm" />
+        <Button
+          class="login__submit"
+          label="Iniciar Sesion"
+          @click="handleSubmitForm"
+        />
         <p class="forgot" align="center">
           <a href="#">¿contraseña olvidada?</a>
         </p>
@@ -33,7 +37,6 @@
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
-import 'primeflex/primeflex.css'
 
 export default {
   name: 'Autenticacion',

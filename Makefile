@@ -17,6 +17,8 @@ purge-client:
 purge-server:
 	cd server && rm -rf ./node_modules 
 
+coverage:
+	cd client && npm run test:unit
 ## Linux Only
 mongo-start:
 	sudo service mongodb start
