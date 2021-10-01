@@ -12,7 +12,7 @@
           <i
             href="#"
             class="profile__edit pi pi-user-edit"
-            @click="openEdit"
+           
           ></i>
         </div>
       </section>
@@ -62,9 +62,9 @@ export default {
     }
   },
   methods: {
-    openEdit() {
-      console.log('WORKS')
-    },
+    // openEdit() {
+    //   console.log('WORKS')
+    // },
     signOut() {
       window.location.href = '/'
     },

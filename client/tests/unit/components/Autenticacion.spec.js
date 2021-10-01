@@ -24,6 +24,7 @@ describe('Autenticacion.vue', () => {
     expect(wrapper.vm.nameValue).toBe('demo')
     expect(wrapper.vm.passwordValue).toBe('demo')
   })
+
   it('login with incorrect values launches an alert', () => {
     const wrapper = shallowMount(Autenticacion)
     const submitButton = wrapper.find('.login__submit')
