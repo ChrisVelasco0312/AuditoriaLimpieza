@@ -63,6 +63,7 @@ auditoriaRoute.route('/eliminar/:id').delete((req, res, next) => {
     if (error) {
       return next(error)
     } else {
+      console.log('Auditoria eliminada' + data)
       res.status(200).json({
         msg: data,
       })
@@ -71,4 +72,3 @@ auditoriaRoute.route('/eliminar/:id').delete((req, res, next) => {
 })
 
 module.exports = auditoriaRoute
-

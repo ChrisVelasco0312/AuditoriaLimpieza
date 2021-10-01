@@ -11,7 +11,7 @@ import RevisionContainer from './revisionContainer.vue'
 import 'primeflex/primeflex.css'
 
 export default {
-  name: 'App',
+  name: 'CrearRevisionDeLimpieza',
   components: {
     SidebarContainer,
     RevisionContainer,
