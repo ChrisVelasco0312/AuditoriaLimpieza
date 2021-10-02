@@ -105,7 +105,7 @@
           </Column>
 
           <Column header="Editar y Eliminar">
-            <template #body>
+            <template #body="slotProps">
               <div class="revisiones__actions">
                 <Button
                   class="p-button-rounded"
@@ -116,6 +116,7 @@
                   class="p-button-rounded p-button-danger"
                   icon="pi pi-times"
                   @click="onDelete(revisiones._id)"
+                  @click="onDelete(slotProps.data._id)"
                 />
               </div>
             </template>
@@ -132,6 +133,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import SidebarContainer from './sidebarContainer.vue'
 import axios from 'axios'
+// import axios from 'axios'
 
 export default {
   name: 'ListarRevisiones',
@@ -180,6 +182,14 @@ export default {
           .catch((error) => {
             console.log(error)
           })
+      console.log(id)
+      try {
+        if (window.confirm('¿Está seguro de eliminar la auditoría?')) {
+          this.$http.delete('http://localhost:3000/api/eliminar/' + id)
+          window.location.href = '/consultar'
+        }
+      } catch (error) {
+        console.log(error)
       }
     },
     exportCSV() {
