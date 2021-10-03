@@ -110,7 +110,7 @@
                 <Button
                   class="p-button-rounded"
                   icon="pi pi-pencil"
-                  @click="onEdit"
+                  @click="onEdit(slotProps.data)"
                 />
                 <Button
                   class="p-button-rounded p-button-danger"
@@ -165,8 +165,8 @@ export default {
     onNew() {
       window.location.href = '/registrar'
     },
-    onEdit() {
-      console.log('edited')
+    onEdit(data) {
+      console.log(data)
     },
     onDelete(id) {
       console.log(id)
