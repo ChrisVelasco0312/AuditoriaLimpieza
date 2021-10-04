@@ -112,15 +112,16 @@
           <Column header="Editar y Eliminar">
             <template #body="slotProps">
               <div class="revisiones__actions">
-                <Button
+                <router-link
+                  :to="{ name: 'edit', params: { id: slotProps.data._id } }"
                   class="p-button-rounded"
                   icon="pi pi-pencil"
-                  @click="onEdit(slotProps.data)"
-                />
+                  >Editar
+                </router-link>
                 <Button
-                  class="p-button-rounded p-button-danger"
-                  icon="pi pi-times"
-                  @click="onDelete(slotProps.data._id)"
+                class="p-button-rounded p-button-danger"
+                icon="pi pi-times"
+                @click="onDelete(slotProps.data._id)"
                 />
               </div>
             </template>
@@ -170,9 +171,7 @@ export default {
     onNew() {
       window.location.href = '/registrar'
     },
-    onEdit(data) {
-      console.log(data)
-    },
+
     onDelete(id) {
       console.log(id)
       try {
