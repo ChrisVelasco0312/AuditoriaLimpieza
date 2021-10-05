@@ -1,6 +1,6 @@
 {
   "name": "AuditoriaLimpieza",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Repositorio del proyecto de Auditoria de limpieza médica, desarrollado dentro del marco del ciclo 3 Misión TIC UTP 2021",
   "main": "index.js",
   "scripts": {
