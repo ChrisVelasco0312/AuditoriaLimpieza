@@ -44,11 +44,6 @@
             headerStyle="width: 7rem"
             header="Fecha"
           ></Column>
-          <Column field="silla" header="Silla"></Column>
-          <Column field="camilla" header="Camilla"></Column>
-          <Column field="escritorio" header="Escritorio"></Column>
-          <Column field="lavamanos" header="Lavamanos"></Column>
-          <Column field="soporte" header="Soporte"></Column>
           <Column
             field="porcentajeLimpio"
             header="% Limpio"
@@ -114,14 +109,14 @@
               <div class="revisiones__actions">
                 <router-link
                   :to="{ name: 'edit', params: { id: slotProps.data._id } }"
-                  class="p-button-rounded"
-                  icon="pi pi-pencil"
+                  class="edit-link"
                   >Editar
+                  <i class="pi pi-pencil"></i>
                 </router-link>
                 <Button
-                class="p-button-rounded p-button-danger"
-                icon="pi pi-times"
-                @click="onDelete(slotProps.data._id)"
+                  class="p-button-rounded p-button-danger"
+                  icon="pi pi-times"
+                  @click="onDelete(slotProps.data._id)"
                 />
               </div>
             </template>
@@ -206,7 +201,7 @@ export default {
 
 .auditorias__list {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0rem;
   width: 90vw;
 }
 
@@ -218,7 +213,7 @@ export default {
   gap: 1rem;
   background: var(--color-light);
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 0;
 }
 
 .auditorias__list--title {
@@ -252,8 +247,29 @@ export default {
 
 .revisiones__actions {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.edit-link {
+  text-decoration: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  auditorias__list {
+    padding: 1rem;
+  }
+  .auditorias__list--header {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
 
