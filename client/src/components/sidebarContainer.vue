@@ -58,9 +58,6 @@ export default {
     }
   },
   methods: {
-    // openEdit() {
-    //   console.log('WORKS')
-    // },
     signOut() {
       window.location.href = '/'
     },

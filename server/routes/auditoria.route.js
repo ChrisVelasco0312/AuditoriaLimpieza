@@ -31,7 +31,6 @@ auditoriaRoute.route('/registrar').post((req, res, next) => {
 auditoriaRoute.route('/editar/:id').get((req, res) => {
   AuditoriaModel.findById(req.params.id, (error, data, next) => {
     if (error) {
-      console.log('entramos')
       console.log(error)
       return next(error)
     } else {

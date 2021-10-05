@@ -168,7 +168,6 @@ export default {
     },
 
     onDelete(id) {
-      console.log(id)
       try {
         if (window.confirm('¿Está seguro de eliminar la auditoría?')) {
           this.$http.delete('http://localhost:3000/api/eliminar/' + id)

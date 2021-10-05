@@ -134,7 +134,7 @@
       :modal="true"
     >
       <div class="confirmation-content">
-        <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem;" />
+        <i class="pi pi-exclamation-triangle p-mr-3" style="font-size: 2rem" />
         <span
           >El formulario no ha sido completado <br />revise e intente
           nuevamente</span
@@ -199,16 +199,8 @@ export default {
 
   created() {
     let apiURL = `http://localhost:3000/api/editar/${this.$route.params.id}`
-    console.log(axios.get(apiURL))
     axios.get(apiURL).then((res) => {
-      //console.log('Entramos')
-      console.log(res.data)
       this.auditoria = res.data
-      console.log(this.auditoria)
-      //console.log(this.auditoria.soporte)
-      //this.auditoria.silla = true
-      //this.checkForm.soporteLiquidos = this.auditoria.soporteLiquidos
-
       this.checkForm.silla = this.finalBooleanObject(this.auditoria.silla)
       this.checkForm.camilla = this.finalBooleanObject(this.auditoria.camilla)
       this.checkForm.escritorio = this.finalBooleanObject(
@@ -224,7 +216,6 @@ export default {
       this.selectedPlace = this.auditoria.sede
 
       this.selectedPlace = this.auditoria.sede
-      console.log(this.selectedPlace)
       this.aseador = this.auditoria.aseador
       this.cleanPercentage = this.auditoria.porcentajeLimpio
       this.notCleanPercentage = this.auditoria.porcentajeSucio
