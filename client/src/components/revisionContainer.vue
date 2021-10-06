@@ -192,7 +192,7 @@ export default {
       cleanPercentage: 0,
       notCleanPercentage: 0,
       displayAlert: false,
-      apiURL: 'aqueous-basin-11426.herokuapp.com',
+      apiURL: 'https://aqueous-basin-11426.herokuapp.com',
     }
   },
   methods: {

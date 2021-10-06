@@ -147,7 +147,7 @@ export default {
   data() {
     return {
       revisiones: [],
-      apiURL: 'aqueous-basin-11426.herokuapp.com',
+      apiURL: 'https://aqueous-basin-11426.herokuapp.com',
       // loading: false,
     }
   },
