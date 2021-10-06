@@ -192,6 +192,7 @@ export default {
       cleanPercentage: 0,
       notCleanPercentage: 0,
       displayAlert: false,
+      apiURL: 'aqueous-basin-11426.herokuapp.com',
     }
   },
   methods: {
@@ -224,7 +225,7 @@ export default {
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
-        let apiURL = 'http://localhost:3000/api/registrar'
+        let apiURL = `${this.apiURL}/api/registrar`
         axios
           .post(apiURL, auditoria)
           .then(() => {

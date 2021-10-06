@@ -194,11 +194,12 @@ export default {
       cleanPercentage: 0,
       notCleanPercentage: 0,
       displayAlert: false,
+      apiURL: 'aqueous-basin-11426.herokuapp.com',
     }
   },
 
   created() {
-    let apiURL = `http://localhost:3000/api/editar/${this.$route.params.id}`
+    let apiURL = `${this.apiURL}/api/editar/${this.$route.params.id}`
     axios.get(apiURL).then((res) => {
       this.auditoria = res.data
       this.checkForm.silla = this.finalBooleanObject(this.auditoria.silla)
@@ -261,7 +262,7 @@ export default {
           porcentajeLimpio: this.cleanPercentage,
         }
 
-        let apiURL = `http://localhost:3000/api/actualizar/${this.$route.params.id}`
+        let apiURL = `${this.apiURL}/api/actualizar/${this.$route.params.id}`
         axios
           .put(apiURL, auditoriaUpdate)
           .then((res) => {

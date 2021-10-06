@@ -147,6 +147,7 @@ export default {
   data() {
     return {
       revisiones: [],
+      apiURL: 'aqueous-basin-11426.herokuapp.com',
       // loading: false,
     }
   },
@@ -154,9 +155,7 @@ export default {
   methods: {
     async getData() {
       try {
-        const response = await this.$http.get(
-          'http://localhost:3000/api/consultar'
-        )
+        const response = await this.$http.get(`${this.apiURL}/api/consultar`)
         this.revisiones = response.data
       } catch (error) {
         console.log(error)
@@ -170,7 +169,7 @@ export default {
     onDelete(id) {
       try {
         if (window.confirm('¿Está seguro de eliminar la auditoría?')) {
-          this.$http.delete('http://localhost:3000/api/eliminar/' + id)
+          this.$http.delete(`${this.apiURL}/api/eliminar/${id}`)
           window.location.href = '/consultar'
         }
       } catch (error) {
