@@ -166,11 +166,11 @@ export default {
       window.location.href = '/registrar'
     },
 
-    onDelete(id) {
+    async onDelete(id) {
       try {
         if (window.confirm('¿Está seguro de eliminar la auditoría?')) {
-          this.$http.delete(`${this.apiURL}/api/eliminar/${id}`)
-          window.location.href = '/consultar'
+          await this.$http.delete(`${this.apiURL}/api/eliminar/${id}`)
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)

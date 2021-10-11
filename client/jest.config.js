@@ -11,5 +11,7 @@ module.exports = {
     '!**/node_modules/**',
     '!**/coverage/**',
     '!**.config.js',
+    '!**/src/main.js',
+    '!**/src/router/index.js',
   ],
 }

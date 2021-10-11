@@ -23,10 +23,6 @@ const routes = [
     name: 'edit',
     component: () => import('../components/EdicionRevisionDeLimpieza'),
   },
-
-
-
-
 ]
 
 const router = createRouter({
