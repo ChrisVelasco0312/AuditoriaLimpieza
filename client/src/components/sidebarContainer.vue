@@ -9,11 +9,7 @@
         />
         <div class="profile__info">
           <h2 class="profile__name">Luisa Gaviria</h2>
-          <i
-            href="#"
-            class="profile__edit pi pi-user-edit"
-           
-          ></i>
+          <i href="#" class="profile__edit pi pi-user-edit"></i>
         </div>
       </section>
       <Menu :model="items" @click.passive="exitAlert($event)" />
@@ -62,9 +58,6 @@ export default {
     }
   },
   methods: {
-    // openEdit() {
-    //   console.log('WORKS')
-    // },
     signOut() {
       window.location.href = '/'
     },
@@ -72,7 +65,7 @@ export default {
       this.visibleLeft = true
       setTimeout(() => {
         const menuLinks = document.querySelectorAll('.p-menuitem-link')
-        menuLinks.forEach(link => {
+        menuLinks.forEach((link) => {
           if (link.pathname == window.location.pathname) {
             link.style.border = '1px solid var(--color-primary)'
           }
@@ -80,7 +73,10 @@ export default {
       }, 100)
     },
     exitAlert(event) {
-      if (window.location.pathname == '/registrar') {
+      if (
+        window.location.pathname.includes('registrar') ||
+        window.location.pathname.includes('edit')
+      ) {
         this.$confirm.require({
           target: event.currentTarget,
           message: 'Usted está realizando una auditoria, ¿desea cancelarla?',

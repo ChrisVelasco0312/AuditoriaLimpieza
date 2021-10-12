@@ -107,11 +107,12 @@
           <Column header="Editar y Eliminar">
             <template #body="slotProps">
               <div class="revisiones__actions">
-                <Button
-                  class="p-button-rounded"
-                  icon="pi pi-pencil"
-                  @click="onEdit(slotProps.data)"
-                />
+                <router-link
+                  :to="{ name: 'edit', params: { id: slotProps.data._id } }"
+                  class="edit-link"
+                  >Editar
+                  <i class="pi pi-pencil"></i>
+                </router-link>
                 <Button
                   class="p-button-rounded p-button-danger"
                   icon="pi pi-times"
@@ -146,6 +147,7 @@ export default {
   data() {
     return {
       revisiones: [],
+      apiURL: 'https://aqueous-basin-11426.herokuapp.com',
       // loading: false,
     }
   },
@@ -153,9 +155,7 @@ export default {
   methods: {
     async getData() {
       try {
-        const response = await this.$http.get(
-          'http://localhost:3000/api/consultar'
-        )
+        const response = await this.$http.get(`${this.apiURL}/api/consultar`)
         this.revisiones = response.data
       } catch (error) {
         console.log(error)
@@ -165,15 +165,12 @@ export default {
     onNew() {
       window.location.href = '/registrar'
     },
-    onEdit(data) {
-      console.log(data)
-    },
-    onDelete(id) {
-      console.log(id)
+
+    async onDelete(id) {
       try {
         if (window.confirm('¿Está seguro de eliminar la auditoría?')) {
-          this.$http.delete('http://localhost:3000/api/eliminar/' + id)
-          window.location.href = '/consultar'
+          await this.$http.delete(`${this.apiURL}/api/eliminar/${id}`)
+          window.location.reload()
         }
       } catch (error) {
         console.log(error)
@@ -202,7 +199,7 @@ export default {
 
 .auditorias__list {
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0rem;
   width: 90vw;
 }
 
@@ -214,7 +211,7 @@ export default {
   gap: 1rem;
   background: var(--color-light);
   border-radius: 5px;
-  padding: 0.5rem 1rem;
+  padding: 0;
 }
 
 .auditorias__list--title {
@@ -248,8 +245,29 @@ export default {
 
 .revisiones__actions {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.edit-link {
+  text-decoration: none;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 0.5rem;
+}
+
+@media (min-width: 600px) {
+  auditorias__list {
+    padding: 1rem;
+  }
+  .auditorias__list--header {
+    padding: 0.5rem 1rem;
+  }
 }
 </style>
 

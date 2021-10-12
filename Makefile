@@ -3,7 +3,7 @@ run-client:
 	cd client && npm run serve
 
 run-server:
-	cd server && npm run app
+	cd server && npm run start
 
 install-client:
 	cd client && npm install

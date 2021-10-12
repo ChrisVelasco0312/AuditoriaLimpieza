@@ -2,13 +2,15 @@
   <div class="revision__container">
     <Card class="header__card">
       <template #content>
-        <h2>Crear Auditoria</h2>
+        <h2>Editar Auditoria</h2>
         <p><b>fecha</b>: {{ auditoriaDate }}</p>
+        <br />
+        <p><b>id_Auditoria:</b>:{{ auditoria._id }}</p>
         <Button
           class="close-button shadow-3 p-button-danger"
           label="cancelar auditoria"
           icon="pi pi-times"
-          @click.passive="cancelarAuditoria($event)"
+          @click.passive="cancelarEdicion($event)"
         />
         <ConfirmPopup></ConfirmPopup>
       </template>
@@ -119,8 +121,8 @@
         </form>
         <Button
           class="shadow-3 form-button"
-          label="Registrar"
-          @click.passive="handleForm()"
+          label="Actualizar"
+          @click.passive="handleUpdateForm()"
           icon="pi pi-plus"
         />
       </template>
@@ -157,10 +159,7 @@ import ConfirmPopup from 'primevue/confirmpopup'
 import axios from 'axios'
 
 export default {
-  created() {
-    this.returnDate()
-  },
-  name: 'RevisionContainer',
+  name: 'EdicionContainer',
   components: {
     Button,
     Card,
@@ -174,6 +173,8 @@ export default {
 
   data: () => {
     return {
+      auditoria: {},
+
       checkForm: {
         silla: null,
         camilla: null,
@@ -181,8 +182,9 @@ export default {
         lavamanos: null,
         soporteLiquidos: null,
       },
+
       auditoriaDate: '',
-      selectedPlace: null,
+      selectedPlace: '',
       places: [
         { name: 'Sede Sur', code: 'SS' },
         { name: 'Sede Norte', code: 'SN' },
@@ -195,7 +197,43 @@ export default {
       apiURL: 'https://aqueous-basin-11426.herokuapp.com',
     }
   },
+
+  created() {
+    let apiURL = `${this.apiURL}/api/editar/${this.$route.params.id}`
+    axios.get(apiURL).then((res) => {
+      this.auditoria = res.data
+      this.checkForm.silla = this.finalBooleanObject(this.auditoria.silla)
+      this.checkForm.camilla = this.finalBooleanObject(this.auditoria.camilla)
+      this.checkForm.escritorio = this.finalBooleanObject(
+        this.auditoria.escritorio
+      )
+      this.checkForm.lavamanos = this.finalBooleanObject(
+        this.auditoria.lavamanos
+      )
+      this.checkForm.soporteLiquidos = this.finalBooleanObject(
+        this.auditoria.soporte
+      )
+      this.auditoriaDate = this.auditoria.fecha
+      this.selectedPlace = this.auditoria.sede
+
+      this.selectedPlace = this.auditoria.sede
+      this.aseador = this.auditoria.aseador
+      this.cleanPercentage = this.auditoria.porcentajeLimpio
+      this.notCleanPercentage = this.auditoria.porcentajeSucio
+    })
+  },
+
   methods: {
+    finalBooleanObject(estado) {
+      let newBoolean = estado
+      if (newBoolean == 'Limpio') {
+        newBoolean = true
+      } else if (newBoolean == 'Sucio') {
+        newBoolean = false
+      }
+      return newBoolean
+    },
+
     finalStringObject(object) {
       let newString = this.checkForm[`${object}`]
       if (newString == true) {
@@ -206,44 +244,31 @@ export default {
       return newString
     },
 
-    handleForm() {
+    handleUpdateForm() {
       if (!this.validate()) {
         this.displayAlert = true
       } else {
-        let auditoria = {
+        let auditoriaUpdate = {
           nombreAuditor: 'Cecilia Diaz',
           sede: this.selectedPlace.name,
           aseador: this.aseador,
           fecha: this.auditoriaDate,
-
           silla: this.finalStringObject('silla'),
           camilla: this.finalStringObject('camilla'),
           escritorio: this.finalStringObject('escritorio'),
           lavamanos: this.finalStringObject('lavamanos'),
           soporte: this.finalStringObject('soporteLiquidos'),
-
           porcentajeSucio: this.notCleanPercentage,
           porcentajeLimpio: this.cleanPercentage,
         }
-        let apiURL = `${this.apiURL}/api/registrar`
+
+        let apiURL = `${this.apiURL}/api/actualizar/${this.$route.params.id}`
         axios
-          .post(apiURL, auditoria)
-          .then(() => {
+          .put(apiURL, auditoriaUpdate)
+          .then((res) => {
+            console.log(res)
             this.$router.push('/consultar')
-            auditoria = {
-              nombreAuditor: '',
-              sede: null,
-              aseador: '',
-              fecha: '',
-              silla: '',
-              camilla: '',
-              escritorio: '',
-              lavamanos: '',
-              soporte: '',
-              porcentajeSucio: 0,
-              porcentajeLimpio: 0,
-            }
-            console.log('auditoria registrada')
+            console.log('auditoria actualizada')
           })
           .catch((error) => {
             console.log(error)
@@ -251,10 +276,11 @@ export default {
         // window.location.href = '/consultar'
       }
     },
-    cancelarAuditoria(event) {
+
+    cancelarEdicion(event) {
       this.$confirm.require({
         target: event.currentTarget,
-        message: '¿Está seguro de que quiere cancelar la auditoría?',
+        message: '¿Está seguro de que quiere cancelar la edición?',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
           window.location.href = '/consultar'
@@ -289,22 +315,6 @@ export default {
         }
       })
       return valid
-    },
-    returnDate() {
-      let today = new Date()
-      let dd = today.getDate()
-
-      let mm = today.getMonth() + 1
-      let yyyy = today.getFullYear()
-      if (dd < 10) {
-        dd = '0' + dd
-      }
-
-      if (mm < 10) {
-        mm = '0' + mm
-      }
-      today = dd + '/' + mm + '/' + yyyy
-      this.auditoriaDate = today
     },
   },
 }

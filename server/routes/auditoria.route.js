@@ -27,6 +27,7 @@ auditoriaRoute.route('/registrar').post((req, res, next) => {
   })
 })
 
+// Obtener datos de registro de auditoria seleccionada para editar según su id
 auditoriaRoute.route('/editar/:id').get((req, res) => {
   AuditoriaModel.findById(req.params.id, (error, data, next) => {
     if (error) {

@@ -18,6 +18,11 @@ const routes = [
     name: 'Registrar',
     component: () => import('../components/CrearRevisionDeLimpieza'),
   },
+  {
+    path: '/edit/:id',
+    name: 'edit',
+    component: () => import('../components/EdicionRevisionDeLimpieza'),
+  },
 ]
 
 const router = createRouter({
